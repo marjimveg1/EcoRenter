@@ -1,12 +1,18 @@
 package com.ispp.EcoRenter.model;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Range;
@@ -16,6 +22,8 @@ import org.hibernate.validator.constraints.Range;
 public class Smallholding extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;
+	
+	// Attributes -----------------------------------
 	
 	@NotBlank
 	private String title;
@@ -64,11 +72,14 @@ public class Smallholding extends DomainEntity {
 	
 	private boolean isAvailable;
 	
+	// Constructors ------------------------------------
 	
 	public Smallholding() {
 		super();
 	}
 
+	
+	// Getters and setters -----------------------------
 	
 	public String getTitle() {
 		return title;
@@ -180,6 +191,33 @@ public class Smallholding extends DomainEntity {
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+	
+	// Associations -------------------------------------
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	private Owner owner;
+	
+	@NotNull
+	@OneToMany
+	private Collection<Photo> photos;
+
+	
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
+
+	public Collection<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Collection<Photo> photos) {
+		this.photos = photos;
 	}
 	
 }

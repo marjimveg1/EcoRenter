@@ -16,6 +16,8 @@ public class Customisation extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	// Attributes ---------------------------------
+	
 	@NotBlank
 	@Email
 	@Column(unique = true)
@@ -29,11 +31,13 @@ public class Customisation extends DomainEntity {
 	@Min(9)
 	private int goldLevel;
 	
+	// Constructors -----------------------------
 	
 	public Customisation() {
 		super();
 	}
 
+	// Getters and setters ----------------------
 
 	public String getEmail() {
 		return email;

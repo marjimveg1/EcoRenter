@@ -2,12 +2,18 @@ package com.ispp.EcoRenter.model;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
+import com.ispp.EcoRenter.security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -15,6 +21,8 @@ public abstract class Actor extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	// Attributes ----------------------------------
+	
 	@NotBlank
 	@Pattern(regexp = "^[^0-9]$")
 	private String name;
@@ -35,10 +43,13 @@ public abstract class Actor extends DomainEntity {
 	private String telephoneNumber;
 
 	
+	// Constructors ------------------------------------
+	
 	public Actor() {
 		super();
 	}
-
+	
+	// Getters and setters -----------------------------
 
 	public String getName() {
 		return name;
@@ -79,5 +90,35 @@ public abstract class Actor extends DomainEntity {
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
 	}
+	
+	// Associations -------------------------------------------
+	
+	@Valid
+	@NotNull
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
+	private UserAccount	userAccount;
+	
+	@Valid
+	@OneToOne(optional = true)
+	private Photo photo;
+
+	
+	public UserAccount getUserAccount() {
+		return this.userAccount;
+	}
+
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
+	
+	
 	
 }
