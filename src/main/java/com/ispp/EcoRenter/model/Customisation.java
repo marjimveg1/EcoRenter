@@ -1,0 +1,78 @@
+package com.ispp.EcoRenter.model;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Range;
+
+@Entity
+@Access(AccessType.PROPERTY)
+public class Customisation extends DomainEntity {
+
+	private static final long serialVersionUID = 1L;
+
+	@NotBlank
+	@Email
+	@Column(unique = true)
+	private String email;
+	
+	private String discountCodes;
+	
+	@Range(min = 3, max = 8)
+	private int silverLevel;
+	
+	@Min(9)
+	private int goldLevel;
+	
+	
+	public Customisation() {
+		super();
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getDiscountCodes() {
+		return discountCodes;
+	}
+
+
+	public void setDiscountCodes(String discountCodes) {
+		this.discountCodes = discountCodes;
+	}
+
+
+	public int getSilverLevel() {
+		return silverLevel;
+	}
+
+
+	public void setSilverLevel(int silverLevel) {
+		this.silverLevel = silverLevel;
+	}
+
+
+	public int getGoldLevel() {
+		return goldLevel;
+	}
+
+
+	public void setGoldLevel(int goldLevel) {
+		this.goldLevel = goldLevel;
+	}
+	
+	
+}
