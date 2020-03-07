@@ -7,6 +7,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Past;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Table(name = "comment")
 public class Comment extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;

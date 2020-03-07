@@ -4,6 +4,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Table(name = "customization")
 public class Customisation extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;

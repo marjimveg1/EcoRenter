@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -21,7 +22,7 @@ import com.ispp.EcoRenter.helper.StringHelper;
 import com.ispp.EcoRenter.model.DomainEntity;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Table(name = "userAccount")
 public class UserAccount extends DomainEntity implements UserDetails {
 
 	// Serialisation identifier -----------------------------------------------

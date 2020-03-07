@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -16,7 +17,7 @@ import javax.validation.constraints.Pattern;
 import com.ispp.EcoRenter.security.UserAccount;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Table(name = "actor")
 public abstract class Actor extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;

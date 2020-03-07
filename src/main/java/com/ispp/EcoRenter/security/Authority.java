@@ -6,13 +6,14 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.security.core.GrantedAuthority;
 
 @Embeddable
-@Access(AccessType.PROPERTY)
+@Table(name = "authority")
 public class Authority implements GrantedAuthority {
 
 	// Constructors -----------------------------------------------------------

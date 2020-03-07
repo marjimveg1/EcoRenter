@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Access(AccessType.PROPERTY)
+@Table(name = "valuation")
 public class Valuation extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;
