@@ -1,20 +1,12 @@
 package com.ispp.EcoRenter.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ispp.EcoRenter.helper.PasswordHelper;
 import com.ispp.EcoRenter.helper.StringHelper;
@@ -22,7 +14,7 @@ import com.ispp.EcoRenter.model.DomainEntity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class UserAccount extends DomainEntity implements UserDetails {
+public class UserAccount extends DomainEntity {
 
 	// Serialisation identifier -----------------------------------------------
 
@@ -31,7 +23,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	public UserAccount() {
 		super();
 
-		this.authorities = new ArrayList<Authority>();
+		//this.authorities = new ArrayList<Authority>();
 	}
 	
 	// Attributes -------------------------------------------------------------
@@ -49,10 +41,11 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Length(min = 5, max = 60)
 	private String password;
 
-	@NotEmpty
-	@Valid
-	@ElementCollection
-	private Collection<Authority>	authorities;
+	
+//	@Valid
+//	@NotEmpty
+//	@OneToMany(targetEntity = Authority.class)
+//	private Collection<Authority>	authorities;
 	
 	
 	public String getUsername() {
@@ -75,51 +68,50 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		}
 	}
 
-	public Collection<Authority> getAuthorities() {
-		// WARNING: Should return an unmodifiable copy, but it's not possible with hibernate!
-		return this.authorities;
-	}
+//	public Collection<Authority> getAuthorities() {
+//		return this.authorities;
+//	}
 
-	public void setAuthorities(final Collection<Authority> authorities) {
-		this.authorities = authorities;
-	}
+//	public void setAuthorities(final Collection<Authority> authorities) {
+//		this.authorities = authorities;
+//	}
+//
+//	public void addAuthority(final Authority authority) {
+//		assert !this.authorities.contains(authority);
+//
+//		this.authorities.add(authority);
+//	}
+//
+//	public void removeAuthority(final Authority authority) {
+//		assert authority != null;
+//		assert this.authorities.contains(authority);
+//		
+//		this.authorities.remove(authority);
+//	}
 
-	public void addAuthority(final Authority authority) {
-		assert !this.authorities.contains(authority);
-
-		this.authorities.add(authority);
-	}
-
-	public void removeAuthority(final Authority authority) {
-		assert authority != null;
-		assert this.authorities.contains(authority);
-		
-		this.authorities.remove(authority);
-	}
-
-	@Transient
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Transient
-	@Override
-	public boolean isAccountNonLocked() {
-		return !this.isBanned;
-	}
-
-	@Transient
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Transient
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+//	@Transient
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		return true;
+//	}
+//
+//	@Transient
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		return !this.isBanned;
+//	}
+//
+//	@Transient
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//		return true;
+//	}
+//
+//	@Transient
+//	@Override
+//	public boolean isEnabled() {
+//		return true;
+//	}
 	
 	public boolean isBanned() {
 		return isBanned;

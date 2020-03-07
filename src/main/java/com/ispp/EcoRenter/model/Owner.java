@@ -3,9 +3,11 @@ package com.ispp.EcoRenter.model;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
 @Entity
+@Table(name = "owner")
 @Access(AccessType.PROPERTY)
 public class Owner extends DomainEntity {
 

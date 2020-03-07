@@ -1,7 +1,5 @@
 package com.ispp.EcoRenter.model;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +14,6 @@ import javax.validation.constraints.Pattern;
 import com.ispp.EcoRenter.security.UserAccount;
 
 @Entity
-@Access(AccessType.PROPERTY)
 public abstract class Actor extends DomainEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -95,11 +92,11 @@ public abstract class Actor extends DomainEntity {
 	
 	@Valid
 	@NotNull
-	@OneToOne(optional = false, cascade = CascadeType.ALL)
+	@OneToOne(optional = false, cascade = CascadeType.ALL, targetEntity = UserAccount.class)
 	private UserAccount	userAccount;
 	
 	@Valid
-	@OneToOne(optional = true)
+	@OneToOne(optional = true, targetEntity = Photo.class)
 	private Photo photo;
 
 	
@@ -118,7 +115,5 @@ public abstract class Actor extends DomainEntity {
 	public void setPhoto(Photo photo) {
 		this.photo = photo;
 	}
-	
-	
 	
 }

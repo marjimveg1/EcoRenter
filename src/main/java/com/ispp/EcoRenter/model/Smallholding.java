@@ -1,12 +1,10 @@
 package com.ispp.EcoRenter.model;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -18,6 +16,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
+@Table(name = "smallholding")
 @Access(AccessType.PROPERTY)
 public class Smallholding extends DomainEntity {
 
@@ -196,13 +195,8 @@ public class Smallholding extends DomainEntity {
 	// Associations -------------------------------------
 	@Valid
 	@NotNull
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, targetEntity = Owner.class)
 	private Owner owner;
-	
-	@NotNull
-	@OneToMany
-	private Collection<Photo> photos;
-
 	
 	public Owner getOwner() {
 		return owner;
@@ -212,12 +206,4 @@ public class Smallholding extends DomainEntity {
 		this.owner = owner;
 	}
 
-	public Collection<Photo> getPhotos() {
-		return photos;
-	}
-
-	public void setPhotos(Collection<Photo> photos) {
-		this.photos = photos;
-	}
-	
 }

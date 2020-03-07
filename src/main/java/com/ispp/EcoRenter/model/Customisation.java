@@ -4,6 +4,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
+@Table(name = "customisation")
 @Access(AccessType.PROPERTY)
 public class Customisation extends DomainEntity {
 
@@ -36,6 +38,16 @@ public class Customisation extends DomainEntity {
 	public Customisation() {
 		super();
 	}
+
+	public Customisation(String email, String discountCodes, int silverLevel, int goldLevel) {
+		super();
+		this.email = email;
+		this.discountCodes = discountCodes;
+		this.silverLevel = silverLevel;
+		this.goldLevel = goldLevel;
+	}
+
+
 
 	// Getters and setters ----------------------
 
@@ -77,6 +89,5 @@ public class Customisation extends DomainEntity {
 	public void setGoldLevel(int goldLevel) {
 		this.goldLevel = goldLevel;
 	}
-	
 	
 }

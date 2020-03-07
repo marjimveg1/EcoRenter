@@ -7,6 +7,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Past;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(name = "comment")
 @Access(AccessType.PROPERTY)
 public class Comment extends DomainEntity {
 
@@ -61,7 +63,7 @@ public class Comment extends DomainEntity {
 	// Associations ---------------------------------
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, targetEntity = RentOut.class)
 	private RentOut rentOut;
 
 	public RentOut getRentOut() {

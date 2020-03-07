@@ -5,10 +5,15 @@ import java.sql.Blob;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "photo")
 @Access(AccessType.PROPERTY)
 public class Photo extends DomainEntity {
 
@@ -57,4 +62,29 @@ public class Photo extends DomainEntity {
 		this.data = data;
 	}
 	
+	// Associations -----------------------------------
+	@Valid
+	@OneToOne(optional = true)
+	private Actor actor;
+	
+	@Valid
+	@ManyToOne(optional = true, targetEntity = Smallholding.class)
+	private Smallholding smallholding;
+
+	public Actor getActor() {
+		return actor;
+	}
+
+	public void setActor(Actor actor) {
+		this.actor = actor;
+	}
+
+	public Smallholding getSmallholding() {
+		return smallholding;
+	}
+
+	public void setSmallholding(Smallholding smallholding) {
+		this.smallholding = smallholding;
+	}
+		
 }
