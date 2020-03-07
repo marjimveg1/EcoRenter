@@ -2,9 +2,6 @@ package com.ispp.EcoRenter.model;
 
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+ 
 @Entity
 @Table(name = "comment")
 public class Comment extends DomainEntity {
@@ -32,7 +29,6 @@ public class Comment extends DomainEntity {
 	private Date writtenMoment;
 	
 	@NotBlank
-	@Column(length = 30000)
 	private String text;
 	
 	// Constructors ---------------------------------

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
+ 
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
+				.antMatchers("/static/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()

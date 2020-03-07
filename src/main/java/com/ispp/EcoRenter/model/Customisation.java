@@ -1,7 +1,5 @@
 package com.ispp.EcoRenter.model;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,7 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Range;
-
+ 
 @Entity
 @Table(name = "customization")
 public class Customisation extends DomainEntity {

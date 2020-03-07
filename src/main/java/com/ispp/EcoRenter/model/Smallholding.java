@@ -2,8 +2,6 @@ package com.ispp.EcoRenter.model;
 
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,7 +19,7 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Table(name = "smallholding")
 public class Smallholding extends DomainEntity {
-
+ 
 	private static final long serialVersionUID = 1L;
 	
 	// Attributes -----------------------------------

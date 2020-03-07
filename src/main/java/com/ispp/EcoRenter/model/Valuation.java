@@ -2,8 +2,6 @@ package com.ispp.EcoRenter.model;
 
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "valuation")
 public class Valuation extends DomainEntity {
-
+ 
 	private static final long serialVersionUID = 1L;
 	
 	@Range(min = 0, max = 5)

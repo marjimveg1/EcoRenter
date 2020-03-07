@@ -3,8 +3,6 @@ package com.ispp.EcoRenter.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -15,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Embeddable
 @Table(name = "authority")
 public class Authority implements GrantedAuthority {
-
+ 
 	// Constructors -----------------------------------------------------------
 	private static final long serialVersionUID = 1L;
 

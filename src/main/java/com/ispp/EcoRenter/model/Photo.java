@@ -2,8 +2,6 @@ package com.ispp.EcoRenter.model;
 
 import java.sql.Blob;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "photo")
 public class Photo extends DomainEntity {
-
+ 
 	private static final long serialVersionUID = 1L;
 
 	@NotBlank

@@ -1,7 +1,5 @@
 package com.ispp.EcoRenter.model;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.ispp.EcoRenter.security.UserAccount;
-
+ 
 @Entity
 @Table(name = "actor")
 public abstract class Actor extends DomainEntity {

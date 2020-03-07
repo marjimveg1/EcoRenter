@@ -3,8 +3,6 @@ package com.ispp.EcoRenter.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -24,7 +22,7 @@ import com.ispp.EcoRenter.model.DomainEntity;
 @Entity
 @Table(name = "userAccount")
 public class UserAccount extends DomainEntity implements UserDetails {
-
+ 
 	// Serialisation identifier -----------------------------------------------
 
 	private static final long serialVersionUID = 1L;
