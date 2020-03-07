@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "owner")
-public class Owner extends DomainEntity {
+public class Owner extends Actor {
  
 	private static final long serialVersionUID = 1L;
 

@@ -5,7 +5,7 @@ import javax.persistence.Table;
  
 @Entity
 @Table(name = "administrator")
-public class Administrator extends DomainEntity {
+public class Administrator extends Actor {
 
 	private static final long serialVersionUID = 1L;
 

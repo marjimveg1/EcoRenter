@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
+	<head>
+		<title>Mostrando parcela</title>
+	</head>
+	
+	<body>
+		<div class="content">
+
+			<div>Nombre:</div>
+			<p th:text="${smallholding.title}"></p>
+
+			<div>Tamaño:</div>
+			<p th:text="${smallholding.size}"></p>
+
+			<div>Descripción:</div>
+			<p th:text="${smallholding.description}"></p>
+
+			<div>Tipo de cultivo:</div>
+			<p th:text="${smallholding.farmingType}"></p>
+
+			<div>Precio:</div>
+			<p th:text="${smallholding.price}"></p>
+
+			<div>Provincia:</div>
+			<p th:text="${smallholding.province}"></p>
+
+			<div>Localidad:</div>
+			<p th:text="${smallholding.locality}"></p>
+
+			<div>Dirección:</div>
+			<p th:text="${smallholding.address}"></p>
+
+			<div>Código postal:</div>
+			<p th:text="${smallholding.postalCode}"></p>
+
+			<div>Estado:</div>
+			<p th:text="${smallholding.status}"></p>
+
+			<div>Latitud:</div>
+			<p th:text="${smallholding.latitude}"></p>
+
+			<div>Longitud:</div>
+			<p th:text="${smallholding.longitude}"></p>
+
+			<div>Duración máxima:</div>
+			<p th:text="${smallholding.maxDuration}"></p>
+
+		
+		</div>
+	</body>
+</html>
+	

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
+	<head>
+		<title>Listado de parcelas</title>
+	</head>
+	
+	<body>
+		<div class="content">
+
+			<table th:if="${smallholdings.size() > 0}">
+				<thead>
+					<tr>
+						<th th:text="#{smallholding.title}">Nombre</th>
+						<th th:text="#{smallholding.size}">Tamaño</th>
+						<th th:text="#{smallholding.province}">Provincia</th>
+						<th th:text="#{smallholding.locality}">Localidad</th>
+						<th th:text="#{smallholding.farmingType}">Tipo de cultivo</th>
+						<th th:text="#{smallholding.status}">Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="sh : ${smallholdings}">
+						<td th:text="${sh.title}"></td>
+						<td th:text="${sh.size}"></td>
+						<td th:text="${sh.province}"></td>
+						<td th:text="${sh.locality}"></td>
+						<td th:text="${sh.farmingType}"></td>
+						<td th:text="${sh.status}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div th:if="${smallholdings.size() == 0}">
+				<span th:text="#{paginacion.empty}"></span>
+			</div>
+
+
+		</div>
+	</body>
+</html>
+	
