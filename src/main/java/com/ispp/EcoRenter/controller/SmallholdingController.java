@@ -39,6 +39,7 @@ public class SmallholdingController {
 
             result = new ModelAndView("smallholding/list");
             result.addObject("smallholdings", smallholdings);
+            result.addObject("requestURI", "smallholding/list.do");
         } catch (Exception e){
             result = new ModelAndView("redirect:miscellaneous/error");
         }

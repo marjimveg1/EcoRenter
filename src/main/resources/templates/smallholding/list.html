@@ -7,7 +7,7 @@
 	<body>
 		<div class="content">
 
-			<table th:if="${smallholdings.size() > 0}">
+			<table th:if="${smallholdings.size() > 0}" th:href="${requestURI}">
 				<thead>
 					<tr>
 						<th th:text="#{smallholding.title}">Nombre</th>
