@@ -55,6 +55,32 @@
                     </div>
                 </div>
             </div>
+
+            <div>
+                <h1>Comentarios</h1>
+    
+                <table th:if="${comments.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Texto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="co : ${comments}">
+                            <td th:text="${co.writtenMoment}"></td>
+                            <td th:text="${co.text}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+    
+                
+                <div th:if="${comments.size() == 0}">
+                    <span>No hay comentarios disponibles</span>
+                </div>
+                
+    
+            </div>
         </section>
 
     </div>
