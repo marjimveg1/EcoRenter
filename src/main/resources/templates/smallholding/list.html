@@ -6,20 +6,23 @@
 	
 	<body>
 		<div class="content">
+			<h1>Listado de parcelas disponibles</h1>
 
-			<table th:if="${smallholdings.size() > 0}" th:href="${requestURI}">
+			<table th:href="${requestURI}">
 				<thead>
 					<tr>
-						<th th:text="#{smallholding.title}">Nombre</th>
-						<th th:text="#{smallholding.size}">Tamaño</th>
-						<th th:text="#{smallholding.province}">Provincia</th>
-						<th th:text="#{smallholding.locality}">Localidad</th>
-						<th th:text="#{smallholding.farmingType}">Tipo de cultivo</th>
-						<th th:text="#{smallholding.status}">Estado</th>
+						<th></th>
+						<th>Nombre</th>
+						<th>Tamaño</th>
+						<th>Provincia</th>
+						<th>Localidad</th>
+						<th>Tipo de cultivo</th>
+						<th>Estado</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="sh : ${smallholdings}">
+					<tr th:each="sh : ${smallholdingPage}">
+						<td><a th:href="@{display?smallholdingId=} + ${sh.id}" th:text="'Mostrar parcela'"></a></td>
 						<td th:text="${sh.title}"></td>
 						<td th:text="${sh.size}"></td>
 						<td th:text="${sh.province}"></td>
@@ -30,10 +33,23 @@
 				</tbody>
 			</table>
 
+			<div th:if="${smallholdingPage.totalPages > 0 && requestURI == 'smallholding/list'}" class="pagination"
+				th:each="pageNumber : ${pageNumbers}">
+				<a th:href="@{/smallholding/list(size=${smallholdingPage.size}, page=${pageNumber})}"
+					th:text=${pageNumber}
+					th:class="${pageNumber==smallholdingPage.number + 1} ? active"></a>
+			</div>
+			<div th:if="${smallholdingPage.totalPages > 0 && requestURI == 'owner/smallholding/listOwnSmallholdings'}" class="pagination"
+				th:each="pageNumber : ${pageNumbers}">
+				<a th:href="@{/smallholding/listOwnSmallholdings(size=${smallholdingPage.size}, page=${pageNumber})}"
+					th:text=${pageNumber}
+					th:class="${pageNumber==smallholdingPage.number + 1} ? active"></a>
+			</div>
+			<!--
 			<div th:if="${smallholdings.size() == 0}">
 				<span th:text="#{paginacion.empty}"></span>
 			</div>
-
+			-->
 
 		</div>
 	</body>

@@ -1,7 +1,9 @@
 package com.ispp.EcoRenter.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.Collections;
+import java.util.List;
 
 import com.ispp.EcoRenter.model.Actor;
 import com.ispp.EcoRenter.model.Owner;
@@ -10,6 +12,10 @@ import com.ispp.EcoRenter.model.Smallholding;
 import com.ispp.EcoRenter.repository.SmallholdingRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -81,6 +87,26 @@ public class SmallholdingService {
     }
 
     // Other business methods
+
+    public Page<Smallholding> findPaginated(Pageable pageable, Collection<Smallholding> smallholdings) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Smallholding> list;
+        ArrayList<Smallholding> smaList= new ArrayList<>(smallholdings);
+ 
+        if (smaList.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, smaList.size());
+            list = smaList.subList(startItem, toIndex);
+        }
+ 
+        Page<Smallholding> smPage
+          = new PageImpl<Smallholding>(list, PageRequest.of(currentPage, pageSize), smaList.size());
+ 
+        return smPage;
+    }
 
     public Collection<Smallholding> findSmallholdingsByOwnerId(int ownerId){
         Collection<Smallholding> result;

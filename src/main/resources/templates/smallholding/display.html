@@ -7,45 +7,80 @@
 	<body>
 		<div class="content">
 
-			<div>Nombre:</div>
-			<p th:text="${smallholding.title}"></p>
+			<h1>Detalles de la parcela</h1>
 
-			<div>Tamaño:</div>
-			<p th:text="${smallholding.size}"></p>
+			<div>
+				<p>
+					<strong>Nombre:</strong>
+					<span th:text="${smallholding.title}"></span>
+				</p>
 
-			<div>Descripción:</div>
-			<p th:text="${smallholding.description}"></p>
+				<p>
+					<strong>Tamaño:</strong>
+					<span th:text="${smallholding.size}"></span>
+				</p>
 
-			<div>Tipo de cultivo:</div>
-			<p th:text="${smallholding.farmingType}"></p>
+				<p>
+					<strong>Descripción:</strong>
+					<span th:text="${smallholding.description}"></span>
+				</p>
 
-			<div>Precio:</div>
-			<p th:text="${smallholding.price}"></p>
+				<p>
+					<strong>Tipo de cultivo:</strong>
+					<span th:text="${smallholding.farmingType}"></span>
+				</p>
 
-			<div>Provincia:</div>
-			<p th:text="${smallholding.province}"></p>
+				<p>
+					<strong>Precio:</strong>
+					<span th:text="${smallholding.price}"></span>
+				</p>
 
-			<div>Localidad:</div>
-			<p th:text="${smallholding.locality}"></p>
+				<p>
+					<strong>Provincia:</strong>
+					<span th:text="${smallholding.province}"></span>
+				</p>
 
-			<div>Dirección:</div>
-			<p th:text="${smallholding.address}"></p>
+				<p>
+					<strong>Localidad:</strong>
+					<span th:text="${smallholding.locality}"></span>
+				</p>
 
-			<div>Código postal:</div>
-			<p th:text="${smallholding.postalCode}"></p>
+				<p>
+					<strong>Dirección:</strong>
+					<span th:text="${smallholding.address}"></span>
+				</p>
 
-			<div>Estado:</div>
-			<p th:text="${smallholding.status}"></p>
+				<p>
+					<strong>Código postal:</strong>
+					<span th:text="${smallholding.postalCode}"></span>
+				</p>
 
-			<div>Latitud:</div>
-			<p th:text="${smallholding.latitude}"></p>
+				<p>
+					<strong>Estado:</strong>
+					<span th:text="${smallholding.status}"></span>
+				</p>
 
-			<div>Longitud:</div>
-			<p th:text="${smallholding.longitude}"></p>
+				<p>
+					<strong>Latitud:</strong>
+					<span th:text="${smallholding.latitude}"></span>
+				</p>
 
-			<div>Duración máxima:</div>
-			<p th:text="${smallholding.maxDuration}"></p>
+				<p>
+					<strong>Longitud:</strong>
+					<span th:text="${smallholding.longitude}"></span>
+				</p>
 
+				<p>
+					<strong>Duración máxima:</strong>
+					<span th:text="${smallholding.maxDuration}"></span>
+				</p>
+
+				<p>
+					<strong>Nombre del propietario:</strong>
+					<span th:text="${smallholding.owner.fullname}"></span>
+				</p>
+
+			</div>
 		
 		</div>
 	</body>
