@@ -15,8 +15,6 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ispp.EcoRenter.helper.PasswordHelper;
-import com.ispp.EcoRenter.helper.StringHelper;
 import com.ispp.EcoRenter.model.DomainEntity;
 
 @Entity
@@ -67,11 +65,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	}
 	
 	public void setPassword(final String password) {
-		assert password == null || password.equals("") || !PasswordHelper.isEncoded(password);
-
-		if (!StringHelper.isBlank(password)) {
-			this.password = PasswordHelper.encode(password);
-		}
+		this.password = password;
 	}
 
 	public Collection<Authority> getAuthorities() {
