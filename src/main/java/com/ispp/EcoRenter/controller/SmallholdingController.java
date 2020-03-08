@@ -6,7 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.ispp.EcoRenter.model.Comment;
 import com.ispp.EcoRenter.model.Smallholding;
+import com.ispp.EcoRenter.service.CommentService;
 import com.ispp.EcoRenter.service.SmallholdingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class SmallholdingController {
 
     @Autowired
     private SmallholdingService smallholdingService;
+
+    @Autowired
+    private CommentService commentService;
 
     // Constructor
 
@@ -48,12 +53,12 @@ public class SmallholdingController {
             smallholdings = this.smallholdingService.findSmallholdingsAvailables();
             Page<Smallholding> shPage = this.smallholdingService.findPaginated(PageRequest.of(currentPage - 1, pageSize),smallholdings);
             int totalPages = shPage.getTotalPages();
-
+            
             if (totalPages > 0) {
                 List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
                 result.addObject("pageNumbers", pageNumbers);
             }
-            
+
             result.addObject("smallholdingPage", shPage);
             result.addObject("requestURI", "smallholding/list");
         } catch (Exception e){
@@ -68,12 +73,15 @@ public class SmallholdingController {
     public ModelAndView display(@RequestParam int smallholdingId){
         ModelAndView result;
         Smallholding smallholding;
+        Collection<Comment> comments;
 
         try {
             smallholding = this.smallholdingService.findOneToDisplay(smallholdingId);
+            comments = this.commentService.findCommentsBySmallholdingId(smallholdingId);
 
             result = new ModelAndView("smallholding/display");
             result.addObject("smallholding", smallholding);
+            result.addObject("comments", comments);
         } catch(Exception e) {
             result = new ModelAndView("redirect:miscellaneous/error");
         }

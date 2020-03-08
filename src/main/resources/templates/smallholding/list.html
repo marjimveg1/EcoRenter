@@ -8,7 +8,7 @@
 		<div class="content">
 			<h1>Listado de parcelas disponibles</h1>
 
-			<table th:href="${requestURI}">
+			<table th:if="${smallholdingPage.getTotalElements() > 0}">
 				<thead>
 					<tr>
 						<th></th>
@@ -45,11 +45,11 @@
 					th:text=${pageNumber}
 					th:class="${pageNumber==smallholdingPage.number + 1} ? active"></a>
 			</div>
-			<!--
-			<div th:if="${smallholdings.size() == 0}">
-				<span th:text="#{paginacion.empty}"></span>
+			
+			<div th:if="${smallholdingPage.getTotalElements() == 0}">
+				<span>No existen resultados</span>
 			</div>
-			-->
+			
 
 		</div>
 	</body>
