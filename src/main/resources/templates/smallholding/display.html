@@ -1,88 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
-	<head>
-		<title>Mostrando parcela</title>
-	</head>
-	
-	<body>
-		<div class="content">
 
-			<h1>Detalles de la parcela</h1>
+<head>
+    <title>Mostrando parcela</title>
+</head>
 
-			<div>
-				<p>
-					<strong>Nombre:</strong>
-					<span th:text="${smallholding.title}"></span>
-				</p>
+<body>
+    <div class="content">
 
-				<p>
-					<strong>Tamaño:</strong>
-					<span th:text="${smallholding.size}"></span>
-				</p>
+        <section class="engine">
+        </section>
+        <section class="services2 cid-rRNDCjx6s4" id="services2-q">
 
-				<p>
-					<strong>Descripción:</strong>
-					<span th:text="${smallholding.description}"></span>
-				</p>
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="media-container-row">
+                        <div class="mbr-figure" style="width: 50%;">
+                            <img src="/resources/images/depositphotos-2400599-stock-photo-vegetable-plots-of-vegetables-952x604.jpeg" alt="Mobirise" title="">
+                        </div>
+                        <div class="align-left aside-content">
+                            <h2 class="mbr-title pt-2 mbr-fonts-style display-2">
+                       <span th:text="${smallholding.title}"></span></h2>
+                            <div class="mbr-section-text">
+                                <p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Tamaño:</strong>
+                                    <span th:text="${smallholding.size}"></span></p>
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Descripción:</strong>
+                                    <span th:text="${smallholding.description}"></span></p>
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Tipo de cultivo:</strong>
+                                    <span th:text="${smallholding.farmingType}"></span></p>
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Provincia:</strong>
+                                    <span th:text="${smallholding.province}"></span></p>
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Localidad:</strong>
+                                    <span th:text="${smallholding.locality}"></span></p>
+								<!--<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Dirección:</strong>
+                                    <span th:text="${smallholding.address}"></span></p>
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Código postal:</strong>
+                                    <span th:text="${smallholding.postalCode}"></span></p>-->
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Estado:</strong>
+                                    <span th:text="${smallholding.status}"></span></p>
+								<!--<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Latitud:</strong>
+                                    <span th:text="${smallholding.latitude}"></span></p>
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Longitud:</strong>
+                                    <span th:text="${smallholding.longitude}"></span></p>-->
+								<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Duración máxima:</strong>
+                                    <span th:text="${smallholding.maxDuration}"></span></p>
+								<!--<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Nombre del propietario:</strong>
+                                    <span th:text="${smallholding.owner.fullname}"></span></p>-->
 
-				<p>
-					<strong>Tipo de cultivo:</strong>
-					<span th:text="${smallholding.farmingType}"></span>
-				</p>
+                                <p class="mbr-text text2 pt-4 mbr-light mbr-fonts-style display-2"><span th:text="${smallholding.price}">€/mes&nbsp;</p>
+                            </div>
+                            <!--Btn-->
+                            <div class="mbr-section-btn pt-3 align-left"><a href="https://mobirise.co" class="btn btn-secondary-outline display-4">Regístrate o inicia sesión para contactar con el propietario</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-				<p>
-					<strong>Precio:</strong>
-					<span th:text="${smallholding.price}"></span>
-				</p>
+    </div>
+</body>
 
-				<p>
-					<strong>Provincia:</strong>
-					<span th:text="${smallholding.province}"></span>
-				</p>
-
-				<p>
-					<strong>Localidad:</strong>
-					<span th:text="${smallholding.locality}"></span>
-				</p>
-
-				<p>
-					<strong>Dirección:</strong>
-					<span th:text="${smallholding.address}"></span>
-				</p>
-
-				<p>
-					<strong>Código postal:</strong>
-					<span th:text="${smallholding.postalCode}"></span>
-				</p>
-
-				<p>
-					<strong>Estado:</strong>
-					<span th:text="${smallholding.status}"></span>
-				</p>
-
-				<p>
-					<strong>Latitud:</strong>
-					<span th:text="${smallholding.latitude}"></span>
-				</p>
-
-				<p>
-					<strong>Longitud:</strong>
-					<span th:text="${smallholding.longitude}"></span>
-				</p>
-
-				<p>
-					<strong>Duración máxima:</strong>
-					<span th:text="${smallholding.maxDuration}"></span>
-				</p>
-
-				<p>
-					<strong>Nombre del propietario:</strong>
-					<span th:text="${smallholding.owner.fullname}"></span>
-				</p>
-
-			</div>
-		
-		</div>
-	</body>
 </html>
-	
