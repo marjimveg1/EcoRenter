@@ -92,8 +92,8 @@ public abstract class Actor extends DomainEntity {
 	
 	// Associations -------------------------------------------
 	
-	@Valid
 	@NotNull
+	@Valid
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private UserAccount	userAccount;
 	

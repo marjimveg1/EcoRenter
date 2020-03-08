@@ -69,7 +69,6 @@ public class RentOut extends DomainEntity {
 	@ManyToOne(optional = false)
 	private Smallholding smallholding;
 	
-	@NotNull
 	@Valid
 	@ManyToOne(optional = true)
 	private Valuation valuation;
