@@ -13,7 +13,7 @@ import javax.persistence.Version;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class DomainEntity implements Serializable {
+public abstract class DomainEntity implements Serializable {
  
 	// Serialisation identifier -----------------------------------------------
 	private static final long serialVersionUID = 1L;

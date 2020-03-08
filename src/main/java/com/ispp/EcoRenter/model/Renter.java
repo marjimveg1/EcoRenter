@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "renter")
-public class Renter extends DomainEntity {
+public class Renter extends Actor {
  
 	private static final long serialVersionUID = 1L;
 	
