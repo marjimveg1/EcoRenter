@@ -39,12 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.formLogin()
 		.loginPage("/login")
-		.defaultSuccessUrl("/sign") //Aqui lo suyo es poner la url del listado de parcelas o lo que sea cuando este logeado, con la opcion de sign out
-		
+		.defaultSuccessUrl("/home") 
 		//.failureUrl("/login-error"), ahora mismo cuando peta se controla en la vista /login, pero se puede hacer una vista nueva, como veamos.
 		.and()
 		.logout()
-		.logoutSuccessUrl("/")
+		.logoutSuccessUrl("/home")
 		;
 	}
 
@@ -54,17 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 
-		/*auth.jdbcAuthentication()
-		.dataSource(dataSource)	
-		.usersByUsernameQuery("select username,password,is_banned "
-				+ "from user_account "
-				+ "where username = ?")
-		.authoritiesByUsernameQuery("select u.username, a.authority "
-				+ "from eco_renter.user_account u "
-				+ "join eco_renter.user_account_authorities a "
-				+ "on u.id = a.user_account_id "
-				+ "where username = ?"); 
-		 */
+
 		auth.userDetailsService(userDetailsService);
 		
 
