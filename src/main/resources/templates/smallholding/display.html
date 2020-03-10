@@ -15,8 +15,8 @@
             <div class="container">
                 <div class="col-md-12">
                     <div class="media-container-row">
-                        <div th:if="${not smallholding.images.isEmpty()}" class="mbr-figure" style="width: 50%;">
-                            <img  src="${smallholding.images}" alt="Mobirise" title="">
+                        <div th:each="im : ${smallholding.images.split(',')}" class="mbr-figure" style="width: 50%;">
+                            <img  href="${im}" alt="Mobirise" title="">
                         </div>
                         <div class="align-left aside-content">
                             <h2 class="mbr-title pt-2 mbr-fonts-style display-2">
@@ -46,6 +46,7 @@
                                     <span th:text="${smallholding.maxDuration}"></span></p>
 								<!--<p class="mbr-text text1 pt-2 mbr-light mbr-fonts-style display-7"><strong>Nombre del propietario:</strong>
                                     <span th:text="${smallholding.owner.fullname}"></span></p>-->
+                                    
 
                                 <p class="mbr-text text2 pt-4 mbr-light mbr-fonts-style display-2"><span th:text="${smallholding.price}">€/mes&nbsp;</p>
                             </div>
@@ -86,9 +87,7 @@
                 <div th:if="${not isRentedByRenter || isRentedByRenter ne null}">
                     <span>Alquilar</span>
                 </div>
-
-
-                
+                              
     
             </div>
         </section>
