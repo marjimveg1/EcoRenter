@@ -1,4 +1,4 @@
-# EcoRenter
+# EcoRenter [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antnolang_EcoRenter&metric=alert_status)](https://sonarcloud.io/dashboard?id=antnolang_EcoRenter) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antnolang_EcoRenter&metric=coverage)](https://sonarcloud.io/dashboard?id=antnolang_EcoRenter) [![Build Status](https://travis-ci.org/antnolang/EcoRenter.svg?branch=master)](https://travis-ci.org/antnolang/EcoRenter)
 
 ## ¿Qué ofrecemos?
 

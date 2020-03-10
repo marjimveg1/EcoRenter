@@ -71,6 +71,9 @@ public class Smallholding extends DomainEntity {
 	
 	private boolean isAvailable;
 	
+	@NotNull
+	private String images;
+	
 	// Constructors ------------------------------------
 	
 	public Smallholding() {
@@ -191,7 +194,16 @@ public class Smallholding extends DomainEntity {
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
-	
+		
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
+	}
+
+
 	// Associations -------------------------------------
 	@Valid
 	@NotNull
