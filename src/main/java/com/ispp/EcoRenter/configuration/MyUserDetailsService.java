@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ispp.EcoRenter.repository.UserAccountRepository;
 import com.ispp.EcoRenter.security.Authority;
 import com.ispp.EcoRenter.security.UserAccount;
 

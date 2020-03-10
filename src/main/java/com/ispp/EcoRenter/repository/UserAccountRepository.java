@@ -1,4 +1,4 @@
-package com.ispp.EcoRenter.configuration;
+package com.ispp.EcoRenter.repository;
 
 import java.util.Optional;
 

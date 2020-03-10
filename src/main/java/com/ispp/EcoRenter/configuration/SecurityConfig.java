@@ -36,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/smallholding/**").permitAll()
 		.antMatchers("/owner/smallholding/**").hasAnyAuthority("OWNER")
 		.antMatchers("/resources/**").permitAll()
-		.anyRequest().authenticated()
 		.and()
 		.formLogin()
 		.loginPage("/login")
