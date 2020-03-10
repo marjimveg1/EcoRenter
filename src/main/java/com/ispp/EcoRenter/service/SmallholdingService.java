@@ -18,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 @Service
 public class SmallholdingService {
@@ -32,6 +34,12 @@ public class SmallholdingService {
     @Autowired
     private ActorService actorService;
 
+    @Autowired
+    private OwnerService ownerService;
+
+    @Autowired
+	private Validator validator;
+
     // Constructor
 
     public SmallholdingService(){
@@ -39,6 +47,49 @@ public class SmallholdingService {
     }
 
     // CRUD Methods
+
+    public Smallholding create(){
+        Smallholding result;
+        Owner principal;
+
+        principal = this.ownerService.findByPrincipal();
+        Assert.notNull(principal, "El propietario debe existir");
+
+        result = new Smallholding();
+        result.setStatus("NOTRENTED");
+        result.setAvailable(true);
+        result.setOwner(principal);
+        result.setPhotos(Collections.emptySet());
+
+        return result;
+    }
+
+    public Smallholding save(Smallholding smallholding){
+        Assert.notNull(smallholding, "La parcela debe existir");
+        Assert.isTrue(smallholding.getOwner().equals(
+            this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
+        Assert.isTrue(!smallholding.getOwner().getIban().isEmpty(), "El propietario debe tener un IBAN asociado");
+        Assert.isTrue(smallholding.getStatus().equals("NOTRENTED"), "No se puede editar una parcela ya alquilada");
+
+        Smallholding result;
+
+        result = this.smallholdingRepository.save(smallholding);
+
+        return result;
+
+    }
+
+    public void deactivate(Smallholding smallholding){
+        Assert.notNull(smallholding, "La parcela no debe ser nula");
+        Assert.isTrue(smallholding.getOwner().equals(
+            this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
+            Assert.isTrue(smallholding.getStatus().equals("NOTRENTED"), "No se puede editar una parcela ya alquilada");
+        Assert.isTrue(smallholding.getId() != 0, "La parcela no existe");
+        Assert.isTrue(smallholding.isAvailable(), "La parcela está ya deshabilitada");
+
+        smallholding.setAvailable(false);
+        
+    }
 
     public Collection<Smallholding> findAll() {
         Collection<Smallholding> result;
@@ -49,6 +100,8 @@ public class SmallholdingService {
     }
 
     public Smallholding findOne(int smallholdingId) {
+        Assert.isTrue(smallholdingId > 0, "La parcela no existe");
+
         Smallholding result;
 
         result = this.smallholdingRepository.getOne(smallholdingId);
@@ -86,7 +139,53 @@ public class SmallholdingService {
         
     }
 
+    public Smallholding findOneToEdit(int smallholdingId){
+        Smallholding result;
+
+        result = this.findOne(smallholdingId);
+        Assert.isTrue(result.getOwner().equals(
+            this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
+
+        return result;
+    }
+
     // Other business methods
+
+    public Smallholding reconstruct(final Smallholding smallholding, final BindingResult binding) {
+		Smallholding result, stored;
+
+		if (smallholding.getId() == 0)
+			result = this.create();
+		else {
+			stored = this.findOneToEdit(smallholding.getId());
+
+			result = new Smallholding();
+			result.setId(stored.getId());
+            result.setVersion(stored.getVersion());
+            result.setOwner(stored.getOwner());
+            result.setStatus(stored.getStatus().trim());
+            result.setAvailable(stored.isAvailable());
+        }
+       
+        result.setTitle(smallholding.getTitle().trim());
+        result.setSize(smallholding.getSize().trim());
+        result.setDescription(smallholding.getDescription().trim());
+        result.setFarmingType(smallholding.getFarmingType().trim());
+        result.setPrice(smallholding.getPrice());
+        result.setProvince(smallholding.getProvince().trim());
+        result.setLocality(smallholding.getLocality().trim());
+        result.setAddress(smallholding.getAddress().trim());
+        result.setPostalCode(smallholding.getPostalCode().trim());
+        result.setLatitude(smallholding.getLatitude().trim());
+        result.setLongitude(smallholding.getLongitude().trim());
+        result.setMaxDuration(smallholding.getMaxDuration());
+        result.setImages(smallholding.getImages().trim());
+        result.setPhotos(smallholding.getPhotos());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
 
     public Page<Smallholding> findPaginated(Pageable pageable, Collection<Smallholding> smallholdings) {
         int pageSize = pageable.getPageSize();

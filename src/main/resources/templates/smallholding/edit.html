@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
+
+<head>
+    <title>Mostrando parcela</title>
+</head>
+
+<body>
+    <div class="content">
+
+        <form th:action="@{/owner/smallholding/edit}" th:object="${smallholding}" method="post">
+            <form:hidden path="id"/>
+            <form:hidden path="version"/>
+            
+            <input type="text" th:field="*{title}" class="small" th:errorclass="fieldError" />
+            <br>
+            <input type="text" th:field="*{size}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{description}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{farmingType}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{price}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{province}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{locality}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{address}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{postalCode}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{latitude}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{longitude}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{maxDuration}" class="small" th:errorclass="fieldError"/>
+            <br>
+            <input type="text" th:field="*{images}" class="small" th:errorclass="fieldError" />
+            <br>
+
+            <button name="save" type="submit">Guardar</button>
+            <br>
+            
+        </form>
+			
+ 	</div>
+</body>
+</html>

@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,6 +72,100 @@ public class SmallholdingOwnerController {
 
         return result;
     }
+
+    // Create
+
+    @GetMapping("/create")
+    public ModelAndView create(){
+        ModelAndView result;
+        Smallholding smallholding;
+
+        smallholding = this.smallholdingService.create();
+
+        result = this.createEditModelAndView(smallholding);
+
+        return result;
+    }
+
+    // Edit
+
+	@GetMapping("/edit")
+	public ModelAndView edit(@RequestParam final int smallholdingId) {
+		ModelAndView result;
+		Smallholding smallholding;
+
+		try {
+			smallholding = this.smallholdingService.findOneToEdit(smallholdingId);
+
+			result = this.createEditModelAndView(smallholding);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:miscellaneous/error");
+		}
+
+		return result;
+	}
+
+    // Save
+
+    @PostMapping(value = "/edit", params = "save")
+    public ModelAndView save(Smallholding smallholding, BindingResult binding){
+        ModelAndView result;
+		Smallholding smallholdingRec;
+
+		smallholdingRec = this.smallholdingService.reconstruct(smallholding, binding);
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(smallholding);
+		else
+			try {
+				this.smallholdingService.save(smallholdingRec);
+				result = new ModelAndView("redirect:/owner/smallholding/listOwnSmallholdings");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(smallholdingRec, "smallholding.commit.error");
+			}
+
+		return result;
+    }
+    
+    // Delete
+
+    @GetMapping("/deactivate")
+    public ModelAndView deactivate(@RequestParam int smallholdingId) {
+		ModelAndView result;
+		Smallholding sh;
+
+		sh = this.smallholdingService.findOneToEdit(smallholdingId);
+
+		try {
+			this.smallholdingService.deactivate(sh);
+
+			result = new ModelAndView("redirect:/owner/smallholding/listOwnSmallholdings");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:miscellaneous/error");
+		}
+
+		return result;
+	}
+
+    // Ancillary methods
+
+    protected ModelAndView createEditModelAndView(final Smallholding smallholding) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(smallholding, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Smallholding smallholding, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("smallholding/edit");
+		result.addObject("smallholding", smallholding);
+		result.addObject("messageCode", messageCode);
+
+		return result;
+	}
 
     
 }
