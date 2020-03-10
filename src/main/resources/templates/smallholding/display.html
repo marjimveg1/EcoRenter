@@ -15,9 +15,12 @@
             <div class="container">
                 <div class="col-md-12">
                     <div class="media-container-row">
-                        <div th:each="im : ${smallholding.images.split(',')}" class="mbr-figure" style="width: 50%;">
-                            <img  href="${im}" alt="Mobirise" title="">
+
+						<div class="mbr-figure" style="width: 50%;">
+                            <img th:src="${smallholding.images.split(',')[0]}" alt="Mobirise" title="">
                         </div>
+
+
                         <div class="align-left aside-content">
                             <h2 class="mbr-title pt-2 mbr-fonts-style display-2">
                        <span th:text="${smallholding.title}"></span></h2>
@@ -51,43 +54,38 @@
                                 <p class="mbr-text text2 pt-4 mbr-light mbr-fonts-style display-2"><span th:text="${smallholding.price}">€/mes&nbsp;</p>
                             </div>
                             <!--Btn-->
+
                             <div class="mbr-section-btn pt-3 align-left"><a href="https://mobirise.co" class="btn btn-secondary-outline display-4">Regístrate o inicia sesión para contactar con el propietario</a></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div>
-                <h1>Comentarios</h1>
+			<div class="content">
+			
+		<section class="services1 cid-rRNjW9YKmG" id="services1-6">
+		<div class="container">
+        <div class="row justify-content-center">
+            <!--Titles-->
+            <div class="col-12">
+                <h1 class="align-left pb-3 mbr-fonts-style display-2">
+                    Comentarios:</h1>
+                
+            </div>
     
-                <table th:if="${comments.size() > 0}">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Texto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="co : ${comments}">
-                            <td th:text="${co.writtenMoment}"></td>
-                            <td th:text="${co.text}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-    
+             
+							<div class="container" th:each="co : ${comments}">
+                        <p class="mbr-title mbr-fonts-style display-5" th:text="${co.writtenMoment}"></p>
+                        <p class="mbr-text mbr-fonts-style display-7"  th:text="${co.text}"></p>
+						<br>
+						
+                    
+                </div>
+                           
                 
                 <div th:if="${comments.size() == 0}">
                     <span>No hay comentarios disponibles</span>
-                </div>
-
-                <div th:if="${isRentedByRenter}">
-                    <span>Contactar con el vendedor</span>
-                </div>
-
-                <div th:if="${not isRentedByRenter || isRentedByRenter ne null}">
-                    <span>Alquilar</span>
-                </div>
-                              
+                </div>                            
     
             </div>
         </section>
