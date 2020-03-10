@@ -1,14 +1,14 @@
 package com.ispp.EcoRenter.service;
 
-import com.ispp.EcoRenter.model.Renter;
-import com.ispp.EcoRenter.repository.RenterRepository;
-import com.ispp.EcoRenter.security.UserAccount;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import com.ispp.EcoRenter.model.Renter;
+import com.ispp.EcoRenter.repository.RenterRepository;
+import com.ispp.EcoRenter.security.UserAccount;
 
 @Service
 public class RenterService {
@@ -25,7 +25,16 @@ public class RenterService {
     }
 
     // CRUD methods
-
+    public Renter findOne(int renterId) {
+    	Assert.isTrue(renterId > 0, "Invalid renterId");
+    	
+    	Renter result;
+    	
+    	result = this.renterRepository.findById(renterId).get();
+    	
+    	return result;
+    }
+    
     // Other business methods
 
     public Renter findByPrincipal(){

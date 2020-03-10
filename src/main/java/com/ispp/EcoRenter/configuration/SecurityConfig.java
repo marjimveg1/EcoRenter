@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -77,4 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
 }
+
+
+
 

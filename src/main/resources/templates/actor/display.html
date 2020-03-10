@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+	<html th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
+		<head>
+			<title>Mostrar actor</title>
+		</head>
+		<body>
+			<div class="content">
+				<div class="display info-actor">
+					<h1> Información sobre el usuario </h1>
+					
+					<div class="detalles actor">
+						<p>
+							<strong>Nombre completo:</strong>
+							<span th:text="${actor.fullname}"></span>
+						</p>
+						
+						<p>
+							<strong>Correo electrónico:</strong>
+							<span th:text="${actor.email}"></span>
+						</p>
+						
+						<p>
+							<strong>Número de teléfono:</strong>
+							<span th:text="${actor.telephoneNumber}"></span>
+						</p>
+						
+						<img th:if="${actor.image != null}" th:src="${actor.image}" alt="Imagen de perfil" />
+					</div>
+					
+					<div th:if="${isMyProfile && iban != null && iban != ''}" class="info iban">
+						<p>
+							<strong> IBAN </strong>
+							<span th:text="${iban}"> </span>
+						</p>
+					</div>
+				
+					<div class="detalles cuenta de usuario">
+						
+					</div>
+					<p th:if="${isMyProfile}"> <a th:href="@{/actor/edit}">Editar perfil </a> </p>
+					<p> <a th:href="@{/}"> Volver atrás </a> </p>
+				</div>
+			</div>
+		</body>
+	</html>
