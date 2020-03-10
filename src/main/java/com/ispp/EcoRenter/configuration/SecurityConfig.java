@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				+ "where username = ?"); 
 		 */
 		auth.userDetailsService(userDetailsService);
+		
 
 	}
 

@@ -1,14 +1,11 @@
 package com.ispp.EcoRenter.configuration;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ispp.EcoRenter.security.Authority;
 import com.ispp.EcoRenter.security.UserAccount;
 
 public class MyUserDetails implements UserDetails {
@@ -16,16 +13,14 @@ public class MyUserDetails implements UserDetails {
 	private String userName;
 	private String password;
 	private boolean active;
-	private List<GrantedAuthority> authorities;
+	private Collection<Authority> authorities;
 	
 	public MyUserDetails(UserAccount user) {
 		
 		this.userName = user.getUsername();
 		this.password = user.getPassword();
 		this.active = user.isEnabled();
-		this.authorities = Arrays.stream(("ADMIN,RENTER").split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+		this.authorities = user.getAuthorities();
 		
 	}
 
@@ -34,7 +29,7 @@ public class MyUserDetails implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<Authority> getAuthorities() {
 		return authorities;
 	}
 
