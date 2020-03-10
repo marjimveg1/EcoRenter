@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `eco_renter` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `eco_renter`;
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: eco_renter
@@ -33,6 +31,7 @@ CREATE TABLE `administrator` (
   `telephone_number` varchar(255) DEFAULT NULL,
   `photo_id` int(11) DEFAULT NULL,
   `user_account_id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_2a5vcjo3stlfcwadosjfq49l1` (`user_account_id`),
   UNIQUE KEY `UK_jj3mmcc0vjobqibj67dvuwihk` (`email`),
@@ -110,6 +109,7 @@ CREATE TABLE `owner` (
   `user_account_id` int(11) NOT NULL,
   `accumulated_months` int(11) NOT NULL,
   `iban` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_hc0nwk401f7t7pohcq2vounjc` (`user_account_id`),
   UNIQUE KEY `UK_kcaoebbgb82ro5cw9nqhw19qb` (`email`),
@@ -179,6 +179,7 @@ CREATE TABLE `renter` (
   `photo_id` int(11) DEFAULT NULL,
   `user_account_id` int(11) NOT NULL,
   `iban` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_32merbwan7h6a2mgwcxpyxlts` (`user_account_id`),
   UNIQUE KEY `UK_8lx5melb9aiqsx6uaw8ssbb5r` (`email`),
@@ -213,6 +214,7 @@ CREATE TABLE `smallholding` (
   `status` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `owner_id` int(11) NOT NULL,
+  `images` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKt41w5r3e6kec8wt0oq2r20cs1` (`owner_id`),
   CONSTRAINT `FKt41w5r3e6kec8wt0oq2r20cs1` FOREIGN KEY (`owner_id`) REFERENCES `owner` (`id`)
@@ -294,4 +296,4 @@ CREATE TABLE `valuation` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-08 14:05:03
+-- Dump completed on 2020-03-10 16:58:57

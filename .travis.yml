@@ -1,0 +1,53 @@
+dist: xenial
+branches:
+  except:
+  - "/^\\d{2}\\.\\d{2}\\.\\d*$/"
+language: java
+services:
+  - mysql
+jdk:
+  - openjdk8
+addons:
+  sonarcloud:
+    organization: "antnolang"
+    token:
+      secure: "Q6Spfxy0d3Zvf8il0y2Brzhzvsvt6pez5F3a8nDCiT7ABSfLtNMv0csfq73JWx0LtZ2v7gaHCJ2PifCHODEaHXWtyQpZhnKZ9BwRytN0n47UazpphfDTqipz/q9Xbl0CcDzsspje+P2I5Z5KAfcoCCE1aVP+9MpDJZS+JoGLcJHTpr6gGNvzxMJD47LmtDMhWjAHjovBjXEiCKdQg8hilRmw/h1vqGWZpbR8QtxDP2eAH8ZQKkwIKdBd6jcO4tSw2Op2Hm+Ke/ObQHhxqkbdp+QoBUInsQci0jUun/pZ9/BGgBjU/hO5BIYUYHHPhFMPDsyilDMJAbJ5sEcJ7KZJgk/Sv5Q3HUw8aiHNqDfcirXBoIWR69rn0/CQfxRzHqVlAe/GFw1CMytdoWy7E70Wc+qp2qU3tRHU87yA5GW5DGmBbzldq0TNFH7i4Y2pQoKzsuHhgMy1xKysAGrHrvo8E3KWX+seYEi0gG1krD7ofK/43TSZLDn3nwjUEkaz/T/SOuAXIWGbCZfNdU8ful+DtpNbTEvwY8iMRlYECkj+QATrSuu9fgakC1pI4NLaKXemnHsGRMPxJ9y4gOe7bA+MiiTHwHv3xQoLzMnfeMV18Ptugm7YQNsCzA0lWwmLcR49f0111P0tJJprioXAQPeKik/+96Jwvdy8ugSwTyq6x4c="
+before_script:
+  - wget https://repo.mysql.com//mysql-apt-config_0.8.15-1_all.deb
+  - sudo dpkg -i mysql-apt-config_0.8.15-1_all.deb
+  - sudo apt-get update -q
+  - sudo apt-get install -q -y --allow-unauthenticated -o Dpkg::Options::=--force-confnew mysql-server
+  - sudo systemctl restart mysql
+  - sudo mysql_upgrade
+  - mysql --version
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=antnolang_EcoRenter
+before_install:
+  - mysql -e "create database eco_renter;"
+  - mysql -e "create user 'spring_dev'@'%' identified by '5ecurePa55w0rd*';"
+  - mysql -e "grant all on eco_renter.* to 'spring_dev'@'%';"
+before_deploy:
+  if ! [ "$IS_TAGGED" ]; then
+    export IS_TAGGED=1;
+    git config --local user.name $USER_TRAVIS;
+    git config --local user.email $EMAIL_TRAVIS;
+    export YEAR_MONTH=$(date +'%y.%m');
+    git tag -a $YEAR_MONTH.$TRAVIS_BUILD_NUMBER -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER";
+  fi
+deploy:
+  - provider: releases
+    api_key:
+      secure: PUSmHdzJZOiPEEMPzpHCYABD8uSVUMj61jBYJ4+CTTBv+66rH1nJiJuFxkjlxdjO0s8nVf5ehvw8iJ53BogZDi421ZWGF1yuTKnzBAfk4+TchjsTrFNvq+6TcuugWi6mXMRxAkN87bOTHBuYFQsMjRn73GUkHkz17ArRdF3gNsJFsIT4Exxo/lp7uNa0bGuWwqgE0Obmke/AWq4+RuRFIrxXGJz7YlpuUWRNKqQbX2jqqwEiL9vbxMg109WAFwz8aANOOnN17rub1IrVO+vL4fy/lkzEgnBMZ//9CVZBytrPB7bKX5bVot8jtwHwTLnUBci5inLLzOZruXtIla1OWDsLtlc3fpWqcZ9e7PJECnij7BH/G51p4a613s48P0A4nqmRQP2CXfVoSL8jiJwazlr2GlkiSIsihDY6/W7yRf/0UAWVGuQn7gq+pQ9jqYw+zMMiDv/yTDG7WBaXvE1cq+6IHTMvEZASjqaDU14EyjPp1BaYHqNVNc4CZirttbI5pReljiEiDQlr/cM5sEwBLNf9EvBtAX55Eei0vSswLeqP5MvOeeGwmLxPodgHTXkoBDoUZeFWMn55RNhRI6P3/f8BBd1V24rqyq47YwKkWXeWNAQaScsomYVNuCWjb0VkvhyUCuxmR6p7sO6RwAO+e7pJVzBCBCdWZe0zWt4rgH8=
+    draft: true
+    file: Eco_Renter.zip
+    on:
+      repo: antnolang/EcoRenter
+      branch: master
+  - provider: heroku
+    app: eco-renter
+    strategy: git
+    api_key:
+      secure: AfRPLrzFGAkDw0imusXHDQU4jPPFf3qpzUlrTgmfS9vW+MyqqXEkDrVDY+K9SrnMzR3TsellIo0NMH1M+qf5xCh5CRy0Ds1zoRa9OKOgXSm5rmX8Y3sQNoDHs0ov7zFoPdtiYfluUp0j0/WTwN7qTkv0rBo05nvZURJnxZOMzC8kMhmVKto4t3Vxr/7RjdKEqPOux3XuqejfkLMKkRbjGnM6dt3z1zMDM/dOSmfr94XGb9FuZ+lfS+plzaG9qi0DBHM9595eJnk5JzxMaKzcphpl5RHkdqGei4w/a19KDgV+8b3OMMeiTvQTulXOcg/MAkutLD5BikQCz2jw5+TxY5q3qHXJdPn3dg/vY7BzBH6PL398jdlRaHQp/p6kfEmtk7JiqSid1aTd+F7OGk91ojxqMB6kIMBhrf5IXVbaT+NbWNYETPK3jEU7VQ3GbKuJnBiyEXn8XI0agIM5Y57nqQrKUjWOneBlPOq6lm4Mtc5GxOmRU9BPSZuYhjsxOk0heDZL/PcaFM+lArxfr61SN+5UjtRKfFpNhWaq6aqHKB3kuaeG4k3eQ477KxHqLqjKo814k2frn9cDVUAjZOhwbu0CIyY34BZxoEuiYi3pU6IzRYqRj5qsDB0BsDPJAuX0rETXtQVkH1aEiQqreJ+yygBbrZ7QqBDqMG005cjI5q0=
+    on:
+      branch: master
+      repo: antnolang/EcoRenter

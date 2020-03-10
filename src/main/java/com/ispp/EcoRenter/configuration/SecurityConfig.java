@@ -33,9 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
-		.antMatchers("/renter").hasRole("RENTER")
-		.antMatchers("/owners").hasRole("OWNER")
-		.antMatchers("/admin").hasAuthority("ADMIN")
+		.antMatchers("/static/**").permitAll()
+		.antMatchers("/smallholding/**").permitAll()
+		.antMatchers("/owner/smallholding/**").hasAnyAuthority("OWNER")
+		.antMatchers("/resources/**").permitAll()
+		.anyRequest().authenticated()
 		.and()
 		.formLogin()
 		.loginPage("/login")
@@ -55,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 		auth.userDetailsService(userDetailsService);
-		
+
 
 	}
 
@@ -63,16 +65,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public static PasswordEncoder passwordEncoder() {
-	      return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
-	
-	
+
+
 	@Bean
-	 public DaoAuthenticationProvider authenticationProvider() {
-	      DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-	      authenticationProvider.setUserDetailsService(userDetailsService);
-	      authenticationProvider.setPasswordEncoder(passwordEncoder());
-	      return authenticationProvider;
-	 }
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(userDetailsService);
+		authenticationProvider.setPasswordEncoder(passwordEncoder());
+		return authenticationProvider;
+	}
 }
 
