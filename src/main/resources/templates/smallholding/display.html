@@ -15,8 +15,8 @@
             <div class="container">
                 <div class="col-md-12">
                     <div class="media-container-row">
-                        <div class="mbr-figure" style="width: 50%;">
-                            <img src="/resources/images/depositphotos-2400599-stock-photo-vegetable-plots-of-vegetables-952x604.jpeg" alt="Mobirise" title="">
+                        <div th:if="${not smallholding.images.isEmpty()}" class="mbr-figure" style="width: 50%;">
+                            <img  src="${smallholding.images}" alt="Mobirise" title="">
                         </div>
                         <div class="align-left aside-content">
                             <h2 class="mbr-title pt-2 mbr-fonts-style display-2">
@@ -78,6 +78,16 @@
                 <div th:if="${comments.size() == 0}">
                     <span>No hay comentarios disponibles</span>
                 </div>
+
+                <div th:if="${isRentedByRenter}">
+                    <span>Contactar con el vendedor</span>
+                </div>
+
+                <div th:if="${not isRentedByRenter || isRentedByRenter ne null}">
+                    <span>Alquilar</span>
+                </div>
+
+
                 
     
             </div>

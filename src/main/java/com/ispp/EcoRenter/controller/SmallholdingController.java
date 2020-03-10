@@ -6,9 +6,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.ispp.EcoRenter.model.Actor;
 import com.ispp.EcoRenter.model.Comment;
+import com.ispp.EcoRenter.model.Renter;
 import com.ispp.EcoRenter.model.Smallholding;
+import com.ispp.EcoRenter.service.ActorService;
 import com.ispp.EcoRenter.service.CommentService;
+import com.ispp.EcoRenter.service.RenterService;
 import com.ispp.EcoRenter.service.SmallholdingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,9 @@ public class SmallholdingController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private ActorService actorService;
 
     // Constructor
 
@@ -74,6 +81,17 @@ public class SmallholdingController {
         ModelAndView result;
         Smallholding smallholding;
         Collection<Comment> comments;
+        Actor principal;
+        Boolean isRentedByRenter;
+
+        isRentedByRenter = null;
+        try {
+            principal = this.actorService.findByPrincipal();
+            if(principal instanceof Renter)
+                isRentedByRenter = this.smallholdingService.isSmallholdingRentedByRenter(principal.getId(), smallholdingId);
+        } catch(Exception e) {
+            isRentedByRenter = null;
+        }
 
         try {
             smallholding = this.smallholdingService.findOneToDisplay(smallholdingId);
@@ -82,6 +100,7 @@ public class SmallholdingController {
             result = new ModelAndView("smallholding/display");
             result.addObject("smallholding", smallholding);
             result.addObject("comments", comments);
+            result.addObject("isRentedByRenter", isRentedByRenter);
         } catch(Exception e) {
             result = new ModelAndView("redirect:miscellaneous/error");
         }

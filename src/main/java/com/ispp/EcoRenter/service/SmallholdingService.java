@@ -124,5 +124,13 @@ public class SmallholdingService {
         return result;
     }
 
+    public Boolean isSmallholdingRentedByRenter(int renterId, int smallholdingId){
+        Boolean result;
+
+        result = this.smallholdingRepository.isSmallholdingRentedByRenter(renterId, smallholdingId);
+
+        return result;
+    }
+
 
 }
