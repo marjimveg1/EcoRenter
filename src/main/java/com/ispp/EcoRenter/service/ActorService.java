@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -61,13 +62,13 @@ public class ActorService {
 
     public Actor findByPrincipal(){
         Actor result;
-        UserAccount userAccount;
+        UserDetails userAccount;
         Authentication authentication;
 
         authentication = SecurityContextHolder.getContext().getAuthentication();
-        userAccount = (UserAccount) authentication.getPrincipal();
+        userAccount = (UserDetails) authentication.getPrincipal();
         
-        result = this.actorRepository.findActorByUserAccountId(userAccount.getId());
+        result = this.actorRepository.findActorByUsername(userAccount.getUsername());
         Assert.notNull(result,"El actor no existe");
 
         return result;

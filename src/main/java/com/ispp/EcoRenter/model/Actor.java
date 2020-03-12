@@ -25,11 +25,11 @@ public abstract class Actor extends DomainEntity {
 	// Attributes ----------------------------------
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]$")
+	@Pattern(regexp = "^[^0-9]*$")
 	private String name;
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]$")
+	@Pattern(regexp = "^[^0-9]*$")
 	private String surname;
 	
 	@Transient

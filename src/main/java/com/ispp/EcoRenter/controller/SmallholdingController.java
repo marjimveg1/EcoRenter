@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ispp.EcoRenter.model.Actor;
 import com.ispp.EcoRenter.model.Comment;
+import com.ispp.EcoRenter.model.Owner;
 import com.ispp.EcoRenter.model.Renter;
 import com.ispp.EcoRenter.model.Smallholding;
 import com.ispp.EcoRenter.service.ActorService;
@@ -70,7 +71,7 @@ public class SmallholdingController {
 			result.addObject("smallholdingPage", shPage);
 			result.addObject("requestURI", "smallholding/list");
 		} catch (Exception e) {
-			result = new ModelAndView("redirect:miscellaneous/error");
+			result = new ModelAndView("redirect:/miscellaneous/error");
 		}
 
 		return result;
@@ -84,15 +85,16 @@ public class SmallholdingController {
 		Actor principal;
 		Boolean isRentedByRenter;
 
+		principal = null;
 		isRentedByRenter = null;
 		try {
 			principal = this.actorService.findByPrincipal();
 			if (principal instanceof Renter) {
 				isRentedByRenter = this.smallholdingService.isSmallholdingRentedByRenter(principal.getId(),
 						smallholdingId);
-			}
+			} 
 		} catch (Exception e) {
-			isRentedByRenter = null;
+			isRentedByRenter = false;
 		}
 
 		try {
@@ -103,8 +105,14 @@ public class SmallholdingController {
 			result.addObject("smallholding", smallholding);
 			result.addObject("comments", comments);
 			result.addObject("isRentedByRenter", isRentedByRenter);
+
+			if(principal != null && principal instanceof Owner && smallholding.getOwner().equals(principal)){
+				result.addObject("ownerPrincipal", true);
+			} else {
+				result.addObject("ownerPrincipal", false);
+			}
 		} catch (Exception e) {
-			result = new ModelAndView("redirect:miscellaneous/error");
+			result = new ModelAndView("redirect:/miscellaneous/error");
 		}
 
 		return result;

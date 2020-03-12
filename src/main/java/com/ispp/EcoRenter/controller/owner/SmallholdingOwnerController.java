@@ -66,7 +66,7 @@ public class SmallholdingOwnerController {
             result.addObject("smallholdingPage", shPage);
             result.addObject("requestURI", "owner/smallholding/listOwnSmallholdings");
         } catch (Exception e){
-            result = new ModelAndView("redirect:miscellaneous/error");
+            result = new ModelAndView("redirect:/miscellaneous/error");
         }
         
 
@@ -99,7 +99,7 @@ public class SmallholdingOwnerController {
 
 			result = this.createEditModelAndView(smallholding);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:miscellaneous/error");
+			result = new ModelAndView("redirect:/miscellaneous/error");
 		}
 
 		return result;
@@ -121,16 +121,16 @@ public class SmallholdingOwnerController {
 				this.smallholdingService.save(smallholdingRec);
 				result = new ModelAndView("redirect:/owner/smallholding/listOwnSmallholdings");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(smallholdingRec, "smallholding.commit.error");
+				result = this.createEditModelAndView(smallholdingRec, "No se pudo realizar la operación");
 			}
 
 		return result;
     }
     
-    // Delete
+    // Deactivate
 
     @GetMapping("/deactivate")
-    public ModelAndView deactivate(@RequestParam int smallholdingId) {
+    public ModelAndView deactivate(@RequestParam final int smallholdingId) {
 		ModelAndView result;
 		Smallholding sh;
 
@@ -139,9 +139,29 @@ public class SmallholdingOwnerController {
 		try {
 			this.smallholdingService.deactivate(sh);
 
-			result = new ModelAndView("redirect:/owner/smallholding/listOwnSmallholdings");
+			result = new ModelAndView("redirect:/smallholding/display?smallholdingId=" + smallholdingId);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:miscellaneous/error");
+			result = new ModelAndView("redirect:/miscellaneous/error");
+		}
+
+		return result;
+    }
+    
+    // Activate
+
+    @GetMapping("/activate")
+    public ModelAndView activate(@RequestParam final int smallholdingId) {
+		ModelAndView result;
+		Smallholding sh;
+
+		sh = this.smallholdingService.findOneToEdit(smallholdingId);
+
+		try {
+			this.smallholdingService.activate(sh);
+
+			result = new ModelAndView("redirect:/smallholding/display?smallholdingId=" + smallholdingId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/miscellaneous/error");
 		}
 
 		return result;

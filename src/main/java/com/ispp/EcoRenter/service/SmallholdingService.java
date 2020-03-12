@@ -69,7 +69,7 @@ public class SmallholdingService {
         Assert.isTrue(smallholding.getOwner().equals(
             this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
         Assert.isTrue(!smallholding.getOwner().getIban().isEmpty(), "El propietario debe tener un IBAN asociado");
-        Assert.isTrue(smallholding.getStatus().equals("NOTRENTED"), "No se puede editar una parcela ya alquilada");
+        Assert.isTrue(smallholding.getStatus().equals("NO ALQUILADA"), "No se puede editar una parcela ya alquilada");
 
         Smallholding result;
 
@@ -83,11 +83,25 @@ public class SmallholdingService {
         Assert.notNull(smallholding, "La parcela no debe ser nula");
         Assert.isTrue(smallholding.getOwner().equals(
             this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
-            Assert.isTrue(smallholding.getStatus().equals("NOTRENTED"), "No se puede editar una parcela ya alquilada");
+        Assert.isTrue(smallholding.getStatus().equals("NO ALQUILADA"), "No se puede editar una parcela ya alquilada");
         Assert.isTrue(smallholding.getId() != 0, "La parcela no existe");
         Assert.isTrue(smallholding.isAvailable(), "La parcela está ya deshabilitada");
 
         smallholding.setAvailable(false);
+        this.smallholdingRepository.flush();
+        
+    }
+
+    public void activate(Smallholding smallholding){
+        Assert.notNull(smallholding, "La parcela no debe ser nula");
+        Assert.isTrue(smallholding.getOwner().equals(
+            this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
+        Assert.isTrue(smallholding.getStatus().equals("NO ALQUILADA"), "No se puede editar una parcela ya alquilada");
+        Assert.isTrue(smallholding.getId() != 0, "La parcela no existe");
+        Assert.isTrue(!smallholding.isAvailable(), "La parcela está ya habilitada");
+
+        smallholding.setAvailable(true);
+        this.smallholdingRepository.flush();
         
     }
 
@@ -104,7 +118,7 @@ public class SmallholdingService {
 
         Smallholding result;
 
-        result = this.smallholdingRepository.getOne(smallholdingId);
+        result = this.smallholdingRepository.findById(smallholdingId).get();
         Assert.notNull(result, "La parcela no existe");
 
         return result;
@@ -145,6 +159,7 @@ public class SmallholdingService {
         result = this.findOne(smallholdingId);
         Assert.isTrue(result.getOwner().equals(
             this.ownerService.findByPrincipal()), "El propietario de la parcela no corresponde con el usuario autenticado");
+        Assert.isTrue(result.getStatus().equals("NO ALQUILADA"), "La parcela no se puede editar debido a que se encuentra en estado distinto a NO ALQUILADA");
 
         return result;
     }
