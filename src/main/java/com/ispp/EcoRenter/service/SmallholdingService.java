@@ -56,7 +56,7 @@ public class SmallholdingService {
         Assert.notNull(principal, "El propietario debe existir");
 
         result = new Smallholding();
-        result.setStatus("NOTRENTED");
+        result.setStatus("NO ALQUILADA");
         result.setAvailable(true);
         result.setOwner(principal);
         result.setPhotos(Collections.emptySet());
