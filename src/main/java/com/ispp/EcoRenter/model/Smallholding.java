@@ -58,7 +58,7 @@ public class Smallholding extends DomainEntity {
 	private String postalCode;
 	
 	@NotBlank
-	@Pattern(regexp = "^RENTED|NOTRENTED|ARGUMENT$")
+	@Pattern(regexp = "^ALQUILADA|NO ALQUILADA|DISPUTA$")
 	private String status;
 	
 	@Range(min = 0, max = 90)

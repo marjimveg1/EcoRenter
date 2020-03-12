@@ -1,5 +1,6 @@
 package com.ispp.EcoRenter.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -30,6 +32,9 @@ public class RentOut extends DomainEntity {
 	
 	@Min(1)
 	private Integer month;
+	
+	@Transient
+	private Date endDate;
 	
 	// Constructors -------------------------------
 	
@@ -56,9 +61,32 @@ public class RentOut extends DomainEntity {
 		this.month = month;
 	}
 	
+	public Date getEndDate() {
+		Calendar cal;
+		
+		if (this.month != null) {
+			cal = Calendar.getInstance();
+			cal.setTime(this.startDate);
+			cal.add(Calendar.MONTH, this.month);
+			
+			this.endDate = cal.getTime();
+		} else {
+			this.endDate = null;
+		}
+		
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 	
 	// Associations ------------------------------
 	
+	
+
+
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
