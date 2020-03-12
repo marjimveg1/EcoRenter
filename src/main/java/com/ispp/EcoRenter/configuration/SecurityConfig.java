@@ -1,63 +1,81 @@
 package com.ispp.EcoRenter.configuration;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
- 
+
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+	@Autowired
+	DataSource dataSource;
+
+	@Autowired
+	UserDetailsService userDetailsService;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/static/**").permitAll()
-				.antMatchers("/smallholding/**").permitAll()
-				.antMatchers("/owner/smallholding/**").hasAnyAuthority("OWNER")
-				.antMatchers("/resources/**").permitAll()
-				.anyRequest().authenticated()
-				.and()
-			.formLogin()
-//				.loginPage("/login")
-				.and()
-			.logout()
-				.logoutSuccessUrl("/");
+		.authorizeRequests()
+		.antMatchers("/").permitAll()
+		.antMatchers("/static/**").permitAll()
+		.antMatchers("/smallholding/**").permitAll()
+		.antMatchers("/owner/smallholding/**").hasAnyAuthority("OWNER")
+		.antMatchers("/resources/**").permitAll()
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.defaultSuccessUrl("/home") 
+		//.failureUrl("/login-error"), ahora mismo cuando peta se controla en la vista /login, pero se puede hacer una vista nueva, como veamos.
+		.and()
+		.logout()
+		.logoutSuccessUrl("/home")
+		;
 	}
 
-	/*
-	 * Este método simula que hay un usuario en la base de datos con:
-	 * usuario: user
-	 * contraseña: password
-	 * rol: USER
-	 * 
-	 * Debe eliminarse una vez que esté implementada la lógica de 
-	 * usuarios para que utilice la base de datos*/
-	@Bean
+
+
 	@Override
-	public UserDetailsService userDetailsService() {
-		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
-				.roles("USER")
-				.build();
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		return new InMemoryUserDetailsManager(user);
+
+
+		auth.userDetailsService(userDetailsService);
+
+
 	}
-	
+
+
+
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+	public static PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
-	
+
+
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(userDetailsService);
+		authenticationProvider.setPasswordEncoder(passwordEncoder());
+		return authenticationProvider;
+	}
 }
+
+
+
+

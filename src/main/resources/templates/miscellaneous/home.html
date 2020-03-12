@@ -1,30 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
-	<head>
-		<title>Página de bienvenida</title>
-	</head>
-	<body>
-		<div class="content">
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
+<head>
+<title>PÃ¡gina de bienvenida</title>
+</head>
+<body>
+	<div class="content">
+
 		
-<section class="engine">
-</section><section class="header10 cid-rRNj0QgYWr mbr-fullscreen" id="header10-3">
+		<section class="header10 cid-rRNj0QgYWr mbr-fullscreen"
+			id="header10-3">
 
-    
 
-    
 
-    <div class="container">
-        <div class="media-container-column mbr-white p-5 align-left col-lg-8 col-md-10">
-            <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2">BIENVENIDOS A ECORENTER</h1>
-            
-            <p class="mbr-text pb-3 mbr-fonts-style display-5">Nuestro principal objetivo es que comas salud. A partir de ahora podrs tener tu propio huerto ecofriendly.</p>
-            <div class="mbr-section-btn"><a class="btn btn-md btn-white-outline display-4" href="">VER CATÁLOGO DE PARCELAS</a></div>
-        </div>
-    </div>
 
-    
-</section>
+			
+			<div sec:authorize="isAuthenticated()"class="container">
+				<div
+					class="media-container-column mbr-white p-5 align-left col-lg-8 col-md-10">
+					<h1 sec:authorize="isAuthenticated()"
+						class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2"
+						th:if="${principal != null}">BIENVENIDO
+						[[${principal.getUsername()}]]</h1>
+					
+					<p class="mbr-text pb-3 mbr-fonts-style display-5">Nuestro
+						principal objetivo es que comas saludable. A partir de ahora
+						podrás tener tu propio huerto ecofriendly.</p>
+					<div class="mbr-section-btn">
+						<a class="btn btn-md btn-white-outline display-4" href="">VER
+							CATÃ�LOGO DE PARCELAS</a>
+					</div>
+				</div>
+			</div>
+			
+			<div sec:authorize="isAnonymous()"class="container">
+				<div
+					class="media-container-column mbr-white p-5 align-left col-lg-8 col-md-10">
+					
+					<h1
+						class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2"
+						>BIENVENIDO A ECO RENTER</h1>
 
-		</div>
-	</body>
+					<p class="mbr-text pb-3 mbr-fonts-style display-5">Nuestro
+						principal objetivo es que comas saludable. A partir de ahora
+						podrás tener tu propio huerto ecofriendly.</p>
+					<div class="mbr-section-btn">
+						<a class="btn btn-md btn-white-outline display-4" href="">VER
+							CATÃ�LOGO DE PARCELAS</a>
+					</div>
+				</div>
+			</div>
+				
+			
+		</section>
+
+	</div>
+</body>
 </html>

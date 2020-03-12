@@ -2494,3 +2494,24 @@ section.lazy-placeholder:after {
 .cid-rRNEevWeuA .media-container-row .mbr-text {
   text-align: center;
 }
+.cid-rSEqmmuXe6 {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #ffffff;
+}
+.cid-rSEqmmuXe6 .title {
+  margin-bottom: 2rem;
+}
+.cid-rSEqmmuXe6 .mbr-section-subtitle {
+  color: #767676;
+}
+.cid-rSEqmmuXe6 a:not([href]):not([tabindex]) {
+  color: #fff;
+  border-radius: 3px;
+}
+.cid-rSEqmmuXe6 a.btn-white:not([href]):not([tabindex]) {
+  color: #333;
+}
+.cid-rSEqmmuXe6 textarea.form-control {
+  min-height: 188px;
+}
