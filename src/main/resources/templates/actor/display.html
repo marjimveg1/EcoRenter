@@ -5,40 +5,55 @@
 		</head>
 		<body>
 			<div class="content">
-				<div class="display info-actor">
-					<h1> InformaciÛn sobre el usuario </h1>
+				<div th:if="${actor != null}" class="display info-actor">
+					<h1> Informaci√≥n sobre el usuario </h1>
 					
-					<div class="detalles actor">
+					<div th:if="${actor.image != null}" class="image profile">
+						<img  th:src="${actor.image}" alt="Imagen de perfil" />
+					</div>
+					
+					<div class="detalles informacion personal">
+						<h3> Datos personales </h3>
 						<p>
 							<strong>Nombre completo:</strong>
 							<span th:text="${actor.fullname}"></span>
 						</p>
 						
 						<p>
-							<strong>Correo electrÛnico:</strong>
+							<strong>Correo electr√≥nico:</strong>
 							<span th:text="${actor.email}"></span>
 						</p>
 						
 						<p>
-							<strong>N˙mero de telÈfono:</strong>
+							<strong>N√∫mero de tel√©fono:</strong>
 							<span th:text="${actor.telephoneNumber}"></span>
 						</p>
-						
-						<img th:if="${actor.image != null}" th:src="${actor.image}" alt="Imagen de perfil" />
 					</div>
 					
 					<div th:if="${isMyProfile && iban != null && iban != ''}" class="info iban">
 						<p>
-							<strong> IBAN </strong>
+							<strong> IBAN: </strong>
 							<span th:text="${iban}"> </span>
 						</p>
 					</div>
 				
-					<div class="detalles cuenta de usuario">
-						
+					<div th:if="${isMyProfile}" class="detalles cuenta de usuario">
+						<h3> Informaci√≥n de la cuenta de usuario </h3>
+						<p>
+							<strong> Nombre de usuario: </strong>
+							<span th:text="${actor.userAccount.username}"></span>
+						</p>
+						<p>
+							<strong> Rol del usuario: </strong>
+							<span th:text="${role}"></span>
+						</p>
 					</div>
 					<p th:if="${isMyProfile}"> <a th:href="@{/actor/edit}">Editar perfil </a> </p>
-					<p> <a th:href="@{/}"> Volver atr·s </a> </p>
+					<p> <a th:href="@{/}"> Volver atr√°s </a> </p>
+				</div>
+				
+				<div th:if="actor == null" class="nada mostrar">
+					<p> <a th:href="@{/}"> Volver atr√°s </a> </p>
 				</div>
 			</div>
 		</body>

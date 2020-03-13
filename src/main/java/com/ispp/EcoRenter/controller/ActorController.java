@@ -43,33 +43,52 @@ public class ActorController {
 		Renter renter;
 		Owner owner;
 		int principalId;
-		String iban;
+		String iban, role;
 		
-		principal = this.actorService.findByPrincipal();
-		principalId = principal.getId();
+		iban = "";
 		
-		isMyProfile = principalId == actorId;
-		
-		result = new ModelAndView("actor/display");
-		
-		if (isMyProfile) {
-			renter = this.renterService.findOne(principalId);
-			owner = this.ownerService.findOne(principalId);
+		try {
+			result = new ModelAndView("actor/display");
 			
-			if (renter != null) {
-				iban = this.actorService.getEncodedIban(renter.getIban());
-			} else if (owner != null){
-				iban = this.actorService.getEncodedIban(owner.getIban());
-			} else {
-				iban = "";
+			principal = this.actorService.findByPrincipal();
+			principalId = principal.getId();
+			
+			/* Si actorId == 0 es cero, significa que el principal quiere mostrar su perfil o bien
+			 * puede ser que un usuario haya indicado en la url el valor cero para actorId. En ambos
+			 * casos cargaremos en el modelo al actor principal.
+			 * 
+			 * Si actorId != 0, entonces un usuario estará tratando de visualizar el perfil de otro usuario
+			 * o bien habrá introducido su id. En cuyo caso habrá que comprobar si principal y actor coinciden.
+			 * 
+			 */ 
+			isMyProfile = actorId == 0 || principalId == actorId;
+			
+			if (isMyProfile) {
+				renter = this.renterService.findOne(principalId);
+				owner = this.ownerService.findOne(principalId);
+				
+				if (renter != null) {
+					iban = this.actorService.getEncodedIban(renter.getIban());
+				} else if (owner != null){
+					iban = this.actorService.getEncodedIban(owner.getIban());
+				} else {
+					iban = "";
+				}
+				
+				result.addObject("iban", iban);
 			}
 			
-			result.addObject("iban", iban);
+			actor = (actorId == 0) ? principal : this.actorService.findOne(actorId);
+			role = this.actorService.getRole(actor);
+			
+			result.addObject("actor", actor);
+			result.addObject("role", role);
+			result.addObject("isMyProfile", isMyProfile);
+		} catch (Throwable oops) {
+			result = new ModelAndView("actor/display");
+			
+			log.info("ActorController::display - Error al procesar la petición.");
 		}
-		
-		actor = this.actorService.findOne(actorId);
-		
-		result.addObject("actor", actor);
 		
 		log.info("Actor enviado desde el controlador a la vista.");
 		

@@ -1,5 +1,7 @@
 package com.ispp.EcoRenter.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,9 +30,12 @@ public class RenterService {
     public Renter findOne(int renterId) {
     	Assert.isTrue(renterId > 0, "Invalid renterId");
     	
+    	Optional<Renter> renter;
     	Renter result;
     	
-    	result = this.renterRepository.findById(renterId).get();
+    	renter = this.renterRepository.findById(renterId);
+    	
+    	result = renter.orElse(null);
     	
     	return result;
     }
