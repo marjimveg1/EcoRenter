@@ -40,6 +40,9 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				<li class="nav-item"><a
 					class="nav-link link text-secondary display-4" href="/smallholding/list"
 					aria-expanded="false">Catálogo de parcelas</a></li>
+				<li sec:authorize="hasAuthority('OWNER')" class="nav-item"><a
+					class="nav-link link text-secondary display-4" href="/owner/smallholding/listOwnSmallholdings"
+					aria-expanded="false">Mis parcelas</a></li>
 				<li sec:authorize="isAnonymous()"class="nav-item" ><a
 					class="nav-link link text-secondary display-4" href="/login"><span
 						
@@ -51,10 +54,11 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				</li>		
 				<li sec:authorize="isAuthenticated()" class="nav-item"><a
 					class="nav-link link text-secondary display-4" href="/logout"><span
-						
+						class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"
 						th:if="${principal != null}"></span>Cerrar Sesion</a></li>
 				<li sec:authorize="isAnonymous()" class="nav-item"><a
-					class="nav-link link text-secondary display-4" href="">Registro</a></li>
+					class="nav-link link text-secondary display-4" href="/page4.html">Registro</a></li>
+						
 			</ul>
 
 

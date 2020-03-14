@@ -35,7 +35,7 @@ public class Smallholding extends DomainEntity {
 	private String description;
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]$")
+	@Pattern(regexp = "^[^0-9]*$")
 	private String farmingType;
 	
 	@DecimalMin(value = "0.0")
@@ -43,11 +43,11 @@ public class Smallholding extends DomainEntity {
 	private double price;
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]$")
+	@Pattern(regexp = "^[^0-9]*$")
 	private String province;
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]$")
+	@Pattern(regexp = "^[^0-9]*$")
 	private String locality;
 	
 	@NotBlank
@@ -211,7 +211,7 @@ public class Smallholding extends DomainEntity {
 	@ManyToOne(optional = false)
 	private Owner owner;
 	
-	@NotEmpty
+	// @NotEmpty
 	@OneToMany
 	private Collection<Photo> photos;
 

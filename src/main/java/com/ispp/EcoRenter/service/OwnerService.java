@@ -5,12 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.ispp.EcoRenter.model.Owner;
 import com.ispp.EcoRenter.repository.OwnerRepository;
-import com.ispp.EcoRenter.security.UserAccount;
 
 @Service
 public class OwnerService {
@@ -46,15 +46,15 @@ public class OwnerService {
 
     public Owner findByPrincipal(){
         Owner result;
-        UserAccount userAccount;
+        UserDetails userAccount;
         Authentication authentication;
 
         authentication = SecurityContextHolder.getContext().getAuthentication();
-        userAccount = (UserAccount) authentication.getPrincipal();
-        
-        result = this.ownerRepository.findOwnerByUserAccountId(userAccount.getId());
-        Assert.notNull(result,"El propietario no existe");
+        userAccount = (UserDetails) authentication.getPrincipal();
 
+        result = this.ownerRepository.findOwnerByUsername(userAccount.getUsername());
+        Assert.notNull(result,"El propietario no existe");
+        
         return result;
     }
 }
