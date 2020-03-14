@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.ispp.EcoRenter.configuration.MyUserDetails;
-import com.ispp.EcoRenter.helper.Utils;
 import com.ispp.EcoRenter.model.Actor;
 import com.ispp.EcoRenter.repository.ActorRepository;
 import com.ispp.EcoRenter.security.Authority;
@@ -24,29 +22,28 @@ public class ActorService {
 
 	private static final Log log = LogFactory.getLog(ActorService.class);
 	
-    // Repository
+    // Repository ------------------------------------
 
     @Autowired
     private ActorRepository actorRepository;
     
-    @Autowired
-	private Utils utils;
-    
-    // Supporting services
+    // Supporting services ----------------------------
 
-    // Constructor
+    // Constructor ------------------------------------
 
     public ActorService(){
         super();
     }
 
-    // CRUD Methods
+    // CRUD Methods ------------------------------------
     public Actor findOne(int actorId) {
     	Actor principal, result;
     	Optional<Actor> optionalActor;
     	boolean isARenter, isRoleActor, isAOwner, isMyProfile;
     	
     	principal = this.findByPrincipal();
+    	
+    	Assert.isTrue(!principal.getUserAccount().isBanned(), "Usuario baneado");
     	
     	optionalActor = this.actorRepository.findById(actorId);
     	
@@ -80,7 +77,7 @@ public class ActorService {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         userAccount = (UserDetails) authentication.getPrincipal();
         
-        result = this.actorRepository.findByUsername(userAccount.getUsername());
+        result = this.findByUsername(userAccount.getUsername());
 		Assert.notNull(result,"El actor no existe");
 		
 		return result;
@@ -92,7 +89,7 @@ public class ActorService {
     	
     	authority = new Authority();
     	authority.setAuthority(role);
-    	
+    	  	
     	result = actor.getUserAccount().getAuthorities().contains(authority);
     	
     	return result;
