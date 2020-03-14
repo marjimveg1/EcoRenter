@@ -9,7 +9,6 @@ import org.springframework.util.Assert;
 
 import com.ispp.EcoRenter.model.Renter;
 import com.ispp.EcoRenter.repository.RenterRepository;
-import com.ispp.EcoRenter.security.UserAccount;
 
 @Service
 public class RenterService {

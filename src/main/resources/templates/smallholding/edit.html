@@ -138,6 +138,10 @@
             </div>
             <br>
 
+            <div th:if="${messageCode != ''}">
+                <p th:text="${messageCode}"></p>
+            </div>
+
             <button name="save" type="submit">Guardar</button>
             <a href="/owner/smallholding/listOwnSmallholdings">Cancelar</a>
             <br>

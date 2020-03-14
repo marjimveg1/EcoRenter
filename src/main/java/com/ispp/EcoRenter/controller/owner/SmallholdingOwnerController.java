@@ -134,7 +134,7 @@ public class SmallholdingOwnerController {
 		ModelAndView result;
 		Smallholding sh;
 
-		sh = this.smallholdingService.findOneToEdit(smallholdingId);
+		sh = this.smallholdingService.findOne(smallholdingId);
 
 		try {
 			this.smallholdingService.deactivate(sh);
@@ -154,7 +154,7 @@ public class SmallholdingOwnerController {
 		ModelAndView result;
 		Smallholding sh;
 
-		sh = this.smallholdingService.findOneToEdit(smallholdingId);
+		sh = this.smallholdingService.findOne(smallholdingId);
 
 		try {
 			this.smallholdingService.activate(sh);
