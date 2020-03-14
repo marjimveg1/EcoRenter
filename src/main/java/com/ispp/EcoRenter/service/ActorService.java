@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -70,21 +73,17 @@ public class ActorService {
     // Other business methods
 
     public Actor findByPrincipal(){
-    	Actor result;
-    	String username;
-    	MyUserDetails userDetails;
-    	Object o;
-    	
-    	o = this.utils.findByPrincipal();
-    	userDetails = (MyUserDetails) o;
-    	
-    	username = userDetails.getUsername().trim();
-    	
-    	result = this.findByUsername(username);
-    	
-    	log.info("Actor recuperado: " + result.toString());
-    	
-    	return result;
+		Actor result;
+    	UserDetails userAccount;
+        Authentication authentication;
+
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        userAccount = (UserDetails) authentication.getPrincipal();
+        
+        result = this.actorRepository.findByUsername(userAccount.getUsername());
+		Assert.notNull(result,"El actor no existe");
+		
+		return result;
     }
     
     public boolean isASpecificRole(Actor actor, String role) {
