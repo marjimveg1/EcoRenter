@@ -28,6 +28,12 @@
 							<strong>Número de teléfono:</strong>
 							<span th:text="${actor.telephoneNumber}"></span>
 						</p>
+						
+						<p sec:authorize="hasRole('OWNER')">
+							<strong>Nivel:</strong>
+							<span th:text="${level}"> </span>
+						</p>
+						
 					</div>
 					
 					<div th:if="${isMyProfile && iban != null && iban != ''}" class="info iban">
@@ -46,6 +52,7 @@
 						<p>
 							<strong> Rol del usuario: </strong>
 							<span th:text="${role}"></span>
+							<!-- <span sec:authentication="principal.authorities"></span> -->
 						</p>
 					</div>
 					<p th:if="${isMyProfile}"> <a th:href="@{/actor/edit}">Editar perfil </a> </p>
