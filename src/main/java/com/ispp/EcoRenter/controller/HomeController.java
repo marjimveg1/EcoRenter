@@ -21,7 +21,6 @@ public class HomeController{
 	
 		Object principal = this.utils.findByPrincipal();
 		
-		
 		ModelAndView mav = new ModelAndView("miscellaneous/home");
 		mav.addObject("principal", principal);
 		
