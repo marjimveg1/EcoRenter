@@ -12,7 +12,6 @@ import com.ispp.EcoRenter.helper.Utils;
 @RequestMapping("/")
 public class HomeController{
 
-	
 	@Autowired
 	private Utils utils;
 

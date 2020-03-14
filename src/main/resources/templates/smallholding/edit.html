@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
+
+<head>
+    <title>Editar parcela</title>
+</head>
+
+<body>
+    <div class="content">
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <form th:action="@{/owner/smallholding/edit}" th:object="${smallholding}" method="post">
+            <input type="hidden" th:field="*{id}" th:value="${smallholding.id}"/>
+            <input type="hidden" th:field="*{version}" th:value="${smallholding.version}"/>
+            
+            <div>
+                <p>
+                    <strong>Título:</strong>
+                    <input type="text" th:field="*{title}" class="small" th:errorclass="fieldError" />
+                    <p th:if="${#fields.hasErrors('title')}">
+                        <span th:errors="*{title}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Tamaño:</strong>
+                    <input type="text" th:field="*{size}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('size')}">
+                        <span th:errors="*{size}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Descripción:</strong>
+                    <input type="text" th:field="*{description}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('description')}">
+                        <span th:errors="*{description}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Tipo de cultivo:</strong>
+                    <input type="text" th:field="*{farmingType}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('farmingType')}">
+                        <span th:errors="*{farmingType}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Precio:</strong>
+                    <input type="text" th:field="*{price}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('price')}">
+                        <span th:errors="*{price}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Provincia:</strong>
+                    <input type="text" th:field="*{province}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('province')}">
+                        <span th:errors="*{province}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Localidad:</strong>
+                    <input type="text" th:field="*{locality}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('locality')}">
+                        <span th:errors="*{locality}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Dirección:</strong>
+                    <input type="text" th:field="*{address}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('address')}">
+                        <span th:errors="*{address}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Código postal:</strong>
+                    <input type="text" th:field="*{postalCode}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('postalCode')}">
+                        <span th:errors="*{postalCode}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Latitud:</strong>
+                    <input type="text" th:field="*{latitude}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('latitude')}">
+                        <span th:errors="*{latitude}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Longitud:</strong>
+                    <input type="text" th:field="*{longitude}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('longitude')}">
+                        <span th:errors="*{longitude}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Duración máxima:</strong>
+                    <input type="text" th:field="*{maxDuration}" class="small" th:errorclass="fieldError"/>
+                    <p th:if="${#fields.hasErrors('maxDuration')}">
+                        <span th:errors="*{maxDuration}"></span>
+                    </p>
+                </p>
+                <br>
+
+                <p>
+                    <strong>Imágenes:</strong>
+                    <input placeholder="urls separadas por comas" type="text" th:field="*{images}" class="small" th:errorclass="fieldError" />
+                    <p th:if="${#fields.hasErrors('images')}">
+                        <span th:errors="*{images}"></span>
+                    </p>
+                </p>
+                <br>
+
+                
+            </div>
+            <br>
+
+            <div th:if="${messageCode != ''}">
+                <p th:text="${messageCode}"></p>
+            </div>
+
+            <button name="save" type="submit">Guardar</button>
+            <a href="/owner/smallholding/listOwnSmallholdings">Cancelar</a>
+            <br>
+
+            
+            
+        </form>
+
+        
+			
+ 	</div>
+</body>
+</html>

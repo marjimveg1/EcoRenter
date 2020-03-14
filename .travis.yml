@@ -44,10 +44,9 @@ deploy:
       repo: antnolang/EcoRenter
       branch: master
   - provider: heroku
-    app: eco-renter
+    app: "$HEROKU_APP_NAME"
     strategy: git
-    api_key:
-      secure: AfRPLrzFGAkDw0imusXHDQU4jPPFf3qpzUlrTgmfS9vW+MyqqXEkDrVDY+K9SrnMzR3TsellIo0NMH1M+qf5xCh5CRy0Ds1zoRa9OKOgXSm5rmX8Y3sQNoDHs0ov7zFoPdtiYfluUp0j0/WTwN7qTkv0rBo05nvZURJnxZOMzC8kMhmVKto4t3Vxr/7RjdKEqPOux3XuqejfkLMKkRbjGnM6dt3z1zMDM/dOSmfr94XGb9FuZ+lfS+plzaG9qi0DBHM9595eJnk5JzxMaKzcphpl5RHkdqGei4w/a19KDgV+8b3OMMeiTvQTulXOcg/MAkutLD5BikQCz2jw5+TxY5q3qHXJdPn3dg/vY7BzBH6PL398jdlRaHQp/p6kfEmtk7JiqSid1aTd+F7OGk91ojxqMB6kIMBhrf5IXVbaT+NbWNYETPK3jEU7VQ3GbKuJnBiyEXn8XI0agIM5Y57nqQrKUjWOneBlPOq6lm4Mtc5GxOmRU9BPSZuYhjsxOk0heDZL/PcaFM+lArxfr61SN+5UjtRKfFpNhWaq6aqHKB3kuaeG4k3eQ477KxHqLqjKo814k2frn9cDVUAjZOhwbu0CIyY34BZxoEuiYi3pU6IzRYqRj5qsDB0BsDPJAuX0rETXtQVkH1aEiQqreJ+yygBbrZ7QqBDqMG005cjI5q0=
+    api_key: "$HEROKU_APIKEY"
     on:
       branch: master
       repo: antnolang/EcoRenter

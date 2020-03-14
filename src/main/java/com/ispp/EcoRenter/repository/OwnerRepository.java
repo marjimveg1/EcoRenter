@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner,Integer> {
 
-    @Query("select o from Owner o where o.userAccount.id = ?1")
-    Owner findOwnerByUserAccountId(int userAccountId);
+    @Query("select o from Owner o where o.userAccount.username = ?1")
+    Owner findOwnerByUsername(String username);
 }

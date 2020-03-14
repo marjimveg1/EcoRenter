@@ -1,14 +1,16 @@
 package com.ispp.EcoRenter.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.ispp.EcoRenter.model.Renter;
 import com.ispp.EcoRenter.repository.RenterRepository;
-import com.ispp.EcoRenter.security.UserAccount;
 
 @Service
 public class RenterService {
@@ -28,9 +30,12 @@ public class RenterService {
     public Renter findOne(int renterId) {
     	Assert.isTrue(renterId > 0, "Invalid renterId");
     	
+    	Optional<Renter> renter;
     	Renter result;
     	
-    	result = this.renterRepository.findById(renterId).get();
+    	renter = this.renterRepository.findById(renterId);
+    	
+    	result = renter.orElse(null);
     	
     	return result;
     }
@@ -39,13 +44,13 @@ public class RenterService {
 
     public Renter findByPrincipal(){
         Renter result;
-        UserAccount userAccount;
+        UserDetails userAccount;
         Authentication authentication;
 
         authentication = SecurityContextHolder.getContext().getAuthentication();
-        userAccount = (UserAccount) authentication.getPrincipal();
+        userAccount = (UserDetails) authentication.getPrincipal();
         
-        result = this.renterRepository.findRenterByUserAccountId(userAccount.getId());
+        result = this.renterRepository.findRenterByUsername(userAccount.getUsername());
         Assert.notNull(result,"El arrendatario no existe");
 
         return result;
