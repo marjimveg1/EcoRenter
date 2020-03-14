@@ -27,5 +27,13 @@ public class Owner extends Actor {
 	public void setIban(String iban) {
 		this.iban = iban;
 	}
-	
+
+	public int getAccumulatedMonths() {
+		return accumulatedMonths;
+	}
+
+	public void setAccumulatedMonths(int accumulatedMonths) {
+		this.accumulatedMonths = accumulatedMonths;
+	}
+		
 }
