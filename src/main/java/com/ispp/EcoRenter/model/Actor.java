@@ -25,11 +25,11 @@ public abstract class Actor extends DomainEntity {
 	// Attributes ----------------------------------
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]*$")
+	@Pattern(regexp = "^[^0-9]+$")
 	private String name;
 	
 	@NotBlank
-	@Pattern(regexp = "^[^0-9]*$")
+	@Pattern(regexp = "^[^0-9]+$")
 	private String surname;
 	
 	@Transient
@@ -71,7 +71,9 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	public String getFullname() {
-		return this.name + " " + this.surname;
+		this.fullname = this.name + " " + this.surname;
+		
+		return this.fullname;
 	}
 
 	public void setFullname(String fullname) {

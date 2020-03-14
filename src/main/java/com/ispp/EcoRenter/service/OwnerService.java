@@ -1,5 +1,7 @@
 package com.ispp.EcoRenter.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,9 +32,12 @@ public class OwnerService {
     public Owner findOne(int ownerId) {
     	Assert.isTrue(ownerId > 0, "Invalid ownerId");
     	
+    	Optional<Owner> owner;
     	Owner result;
     	
-    	result = this.ownerRepository.findById(ownerId).get();
+    	owner = this.ownerRepository.findById(ownerId);
+    	
+    	result = owner.orElse(null);
     	
     	return result;
     }

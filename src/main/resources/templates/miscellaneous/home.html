@@ -3,7 +3,7 @@
 		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	th:replace="~{master-page/layout :: layout(~{::title}, ~{::div.content})}">
 <head>
-<title>PÃ¡gina de bienvenida</title>
+<title>Página de bienvenida</title>
 </head>
 <body>
 	<div class="content">
@@ -16,43 +16,22 @@
 
 
 			
-			<div sec:authorize="isAuthenticated()"class="container">
+			<div class="container">
 				<div
 					class="media-container-column mbr-white p-5 align-left col-lg-8 col-md-10">
-					<h1 sec:authorize="isAuthenticated()"
-						class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2"
-						th:if="${principal != null}">BIENVENIDO
-						[[${principal.getUsername()}]]</h1>
-					
-					<p class="mbr-text pb-3 mbr-fonts-style display-5">Nuestro
-						principal objetivo es que comas saludable. A partir de ahora
-						podrás tener tu propio huerto ecofriendly.</p>
-					<div class="mbr-section-btn">
-						<a class="btn btn-md btn-white-outline display-4" href="">VER
-							CATÃ�LOGO DE PARCELAS</a>
-					</div>
-				</div>
-			</div>
-			
-			<div sec:authorize="isAnonymous()"class="container">
-				<div
-					class="media-container-column mbr-white p-5 align-left col-lg-8 col-md-10">
-					
-					<h1
-						class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2"
+						
+					<h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2"
 						>BIENVENIDO A ECO RENTER</h1>
-
+					
 					<p class="mbr-text pb-3 mbr-fonts-style display-5">Nuestro
 						principal objetivo es que comas saludable. A partir de ahora
 						podrás tener tu propio huerto ecofriendly.</p>
 					<div class="mbr-section-btn">
-						<a class="btn btn-md btn-white-outline display-4" href="">VER
-							CATÃ�LOGO DE PARCELAS</a>
+						<a class="btn btn-md btn-white-outline display-4"href="/smallholding/list">VER
+							CATÁLOGO DE PARCELAS</a>
 					</div>
 				</div>
 			</div>
-				
-			
 		</section>
 
 	</div>
