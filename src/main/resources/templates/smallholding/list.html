@@ -34,7 +34,7 @@
 				<div class="mbr-section-btn align-center"><a th:href="@{display?smallholdingId=} + ${sh.id}" class="btn btn-warning-outline display-4">Ver parcela</a></div>
 			</div>
 			
-			
+
 			<div  th:if="${smallholdingPage.totalPages > 0 && requestURI == 'smallholding/list'}" 
 				th:each="pageNumber : ${pageNumbers}">
 				<nav aria-label="Page navigation example">
@@ -55,6 +55,7 @@
 					th:text=${pageNumber}
 					th:class="${pageNumber==smallholdingPage.number + 1} ? active"></a>
 			</div>
+			
 			
 			<div th:if="${smallholdingPage.getTotalElements() == 0}">
 				<span>No existen resultados</span>
