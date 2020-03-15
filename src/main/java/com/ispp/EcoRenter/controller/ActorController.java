@@ -13,6 +13,7 @@ import com.ispp.EcoRenter.model.Actor;
 import com.ispp.EcoRenter.model.Owner;
 import com.ispp.EcoRenter.model.Renter;
 import com.ispp.EcoRenter.service.ActorService;
+import com.ispp.EcoRenter.service.CustomisationService;
 import com.ispp.EcoRenter.service.OwnerService;
 import com.ispp.EcoRenter.service.RenterService;
 
@@ -27,6 +28,9 @@ public class ActorController {
 	
 	@Autowired
 	private OwnerService ownerService;
+	
+	@Autowired
+	private CustomisationService customisationService;
 	
 	@Autowired
 	private RenterService renterService;
@@ -44,6 +48,7 @@ public class ActorController {
 		Owner owner;
 		int principalId;
 		String iban, role;
+		String level;
 		
 		iban = "";
 		
@@ -71,6 +76,9 @@ public class ActorController {
 					iban = this.actorService.getEncodedIban(renter.getIban());
 				} else if (owner != null){
 					iban = this.actorService.getEncodedIban(owner.getIban());
+					level = this.customisationService.getLevelByOwner(owner);
+					
+					result.addObject("level", level);
 				} else {
 					iban = "";
 				}
